@@ -1,0 +1,36 @@
+.test {
+  border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  border: 2px solid rgb(0, 0, 0) !important;
+}
+
+.menubar {
+  background-color: #fee715 !important;
+  border-bottom: 2px solid rgb(0, 0, 0) !important;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+}
+
+.ui.secondary.menu .active.item {
+  background-color: #101820 !important;
+  color: #fee715;
+  opacity: 1.2;
+
+  transition: all 0.5s ease-in-out;
+}
+
+.ui.secondary.menu .active.item:hover {
+  background-color: #5f5f60 !important;
+  opacity: 1;
+}
+
+.ui.secondary.menu .item:hover {
+  background-color: #5f5f60 !important;
+  color: #fee715 !important;
+  opacity: 1.8;
+}
+
+.ui.secondary.menu .item {
+  transition: all 0.5s ease-in-out;
+}
