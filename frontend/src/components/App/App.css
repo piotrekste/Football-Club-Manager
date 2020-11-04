@@ -16,3 +16,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.container {
+  width: 80vw;
+  min-height: 85vh;
+  background-color: rgb(245, 245, 240);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5vh;
+}

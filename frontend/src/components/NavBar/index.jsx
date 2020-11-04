@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import "./NavBar.css";
-
+import logo from "../../img/logo.png";
 import { Link } from "react-router-dom";
-import { Input, Menu } from "semantic-ui-react";
+import { Input, Menu, Image } from "semantic-ui-react";
 class NavBar extends Component {
   state = {
     data: [],
-    activeItem: "home",
+    activeItem: "",
   };
   getData = async () => {
     const response = await fetch("http://localhost:5000/user/", setHeaders());
@@ -21,27 +21,18 @@ class NavBar extends Component {
   render() {
     return (
       <div className="menubar">
-        <Menu secondary size="large">
-          <Menu.Item
+        <Menu stackable secondary size="large">
+          <Image
+            src={logo}
+            className="navbar-logo"
             as={Link}
-            to="/home"
-            name="home"
-            className="menuitem"
-            active={this.state.activeItem === "home"}
-            onClick={this.handleItemClick}
-          ></Menu.Item>
+            to="/"
+            style={{ width: "200px", height: "50px" }}
+          />
 
           <Menu.Item
             as={Link}
-            to="/"
-            name="back"
-            active={this.state.activeItem === "back"}
-            onClick={this.handleItemClick}
-            className="menuitem"
-          />
-          <Menu.Item
-            as={Link}
-            to="/"
+            to="/players"
             name="players"
             active={this.state.activeItem === "players"}
             onClick={this.handleItemClick}
@@ -49,19 +40,32 @@ class NavBar extends Component {
           />
           <Menu.Item
             as={Link}
-            to="/"
+            to="/staffs"
+            name="staff"
+            active={this.state.activeItem === "staff"}
+            onClick={this.handleItemClick}
+            className="menuitem"
+          />
+          <Menu.Item
+            as={Link}
+            to="/buildings"
             name="buildings"
             active={this.state.activeItem === "buildings"}
             onClick={this.handleItemClick}
             className="menuitem"
           />
+          <Menu.Item
+            as={Link}
+            to="/timetable"
+            name="timetable"
+            active={this.state.activeItem === "timetable"}
+            onClick={this.handleItemClick}
+            className="menuitem"
+          />
           <Menu.Menu position="right">
-            <Menu.Item>
-              <Input icon="search" placeholder="Search..." />
-            </Menu.Item>
             <Menu.Item
-              name="logout"
-              active={this.state.activeItem === "logout"}
+              name="Logout"
+              active={this.state.activeItem === "Logout"}
               onClick={this.handleItemClick}
             />
           </Menu.Menu>
