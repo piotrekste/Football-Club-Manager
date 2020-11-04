@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
-const staffSchema = new mongoose.Schema({
+const staffsSchema = new mongoose.Schema({
   first_name: {
     type: String,
     default: "",
@@ -18,22 +18,31 @@ const staffSchema = new mongoose.Schema({
     enum: ["", "trainer", "physio"], //todo more
     default: "",
   },
-  salary: {
-    type: Number,
-    default: 0,
+  login: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
+  password: {
+    type: String,
+    default: "",
+    maxlength: 420,
   },
 });
 
-const validateStaff = (staff) => {
+const validateStaffs = (staffs) => {
   const schema = Joi.object({
     first_name: Joi.string().max(420),
     last_name: Joi.string().max(420),
     role: Joi.string().valid("trainer", "physio"), //todo more
-    height: Joi.number().min(0),
+    login: Joi.string().max(420),
+    password: Joi.string().max(420),
   });
 
-  return schema.validate(staff);
+  return schema.validate(staffs);
 };
 
-exports.staff = staffSchema;
-exports.validateStaff = validateStaff;
+const Staffs = mongoose.model("Staffs", staffsSchema);
+//exports.validateBuildings = validateBuildings;
+module.exports = validateStaffs;
+module.exports = Staffs;

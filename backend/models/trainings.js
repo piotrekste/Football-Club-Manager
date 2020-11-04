@@ -4,18 +4,14 @@ Joi.objectId = require("joi-objectid")(Joi);
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const trainingsSchema = new mongoose.Schema({
-  start_date: {
+  date: {
     type: Date,
     default: Date.now,
   },
-  finish_date: {
-    type: Date,
-    default: Date.now,
-  },
-  players_id: {
-    type: [ObjectId],
-    required: true,
-    ref: "Players",
+  place: {
+    type: String,
+    default: "",
+    maxlength: 420,
   },
   duration: {
     type: Number,
@@ -25,14 +21,15 @@ const trainingsSchema = new mongoose.Schema({
 
 const validateTrainings = (trainings) => {
   const schema = Joi.object({
-    start_date: Joi.date(),
-    finish_date: Joi.date(),
+    date: Joi.date(),
+    place: Joi.string().max(420),
     duration: Joi.number().min(0),
-    players_id: Joi.array().items(Joi.objectId()),
   });
 
   return schema.validate(trainings);
 };
 
-exports.trainings = trainingsSchema;
-exports.validateTrainings = validateTrainings;
+const Trainings = mongoose.model("Trainings", trainingsSchema);
+//exports.validateBuildings = validateBuildings;
+module.exports = validateTrainings;
+module.exports = Trainings;

@@ -3,19 +3,19 @@ const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const statisticsSchema = new mongoose.Schema({
-  season_goals: {
+  goals_season: {
     type: Number,
     default: 0,
   },
-  overall_goals: {
+  goals_all: {
     type: Number,
     default: 0,
   },
-  season_assists: {
+  assists_season: {
     type: Number,
     default: 0,
   },
-  overall_assists: {
+  assists_all: {
     type: Number,
     default: 0,
   },
@@ -23,19 +23,37 @@ const statisticsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  height: {
+    type: Number,
+    default: 0,
+  },
+  weight: {
+    type: Number,
+    default: 0,
+  },
+  foot: {
+    type: String,
+    enum: ["", "right", "left"], //todo more
+    default: "",
+  },
 });
 
 const validateStatistics = (statistics) => {
   const schema = Joi.object({
-    season_goals: Joi.number().min(0),
-    overall_goals: Joi.number().min(0),
-    season_assists: Joi.number().min(0),
-    overall_assists: Joi.number().min(0),
+    goals_season: Joi.number().min(0),
+    goals_all: Joi.number().min(0),
+    assists_season: Joi.number().min(0),
+    assists_all: Joi.number().min(0),
     matches: Joi.number().min(0),
+    height: Joi.number().min(0),
+    weight: Joi.number().min(0),
+    position: Joi.string().valid("right", "left"),
   });
 
   return schema.validate(statistics);
 };
 
-exports.statistics = statisticsSchema;
-exports.validateStatistics = validateStatistics;
+const Statistics = mongoose.model("Statistics", statisticsSchema);
+//exports.validateBuildings = validateBuildings;
+module.exports = validateStatistics;
+module.exports = Statistics;

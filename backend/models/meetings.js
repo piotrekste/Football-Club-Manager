@@ -1,35 +1,36 @@
 const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const matchesSchema = new mongoose.Schema({
+const meetingsSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-  },
-  opponent_name: {
-    type: String,
-    default: "",
-    maxlength: 420,
   },
   location: {
     type: String,
     default: "",
     maxlength: 420,
   },
+  description: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
 });
 
-const validateMatches = (matches) => {
+const validateMeetings = (meetings) => {
   const schema = Joi.object({
     date: Joi.date(),
     location: Joi.string().max(420),
-    opponent_name: Joi.string().max(420),
+    description: Joi.string().max(420),
   });
 
-  return schema.validate(matches);
+  return schema.validate(meetings);
 };
 
-const Matches = mongoose.model("Matches", matchesSchema);
+const Meetings = mongoose.model("Meetings", meetingsSchema);
 //exports.validateBuildings = validateBuildings;
-module.exports = validateMatches;
-module.exports = Matches;
+module.exports = validateMeetings;
+module.exports = Meetings;
