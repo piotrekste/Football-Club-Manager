@@ -21,20 +21,26 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully!");
 });
 
-const user = require("./routes/user");
-app.use("/user", user);
-
 const building = require("./routes/buildings");
 app.use("/building", building);
 
-const features = require("./routes/features");
-app.use("/features", features);
+const contracts = require("./routes/contracts");
+app.use("/contracts", contracts);
 
-const opponents = require("./routes/opponents");
-app.use("/opponents", opponents);
+const managers = require("./routes/managers");
+app.use("/managers", managers);
 
-const staff = require("./routes/staff");
-app.use("/staff", staff);
+const matches = require("./routes/matches");
+app.use("/matches", matches);
+
+const meetings = require("./routes/meetings");
+app.use("/meetings", meetings);
+
+const players = require("./routes/players");
+app.use("/players", players);
+
+const staffs = require("./routes/staffs");
+app.use("/staffs", staffs);
 
 const trainings = require("./routes/trainings");
 app.use("/trainings", trainings);
