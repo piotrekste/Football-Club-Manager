@@ -49,7 +49,7 @@ const playersSchema = new mongoose.Schema({
     required: true,
     ref: "Contracts",
   },
-  training_id: {
+  trainings_id: {
     type: [ObjectId],
     required: true,
     ref: "Trainings",
@@ -72,7 +72,7 @@ const validatePlayers = (players) => {
     ), //todo more
     statistics_id: Joi.array().items(Joi.objectId()),
     contract_id: Joi.array().items(Joi.objectId()),
-    training_id: Joi.array().items(Joi.objectId()),
+    trainings_id: Joi.array().items(Joi.objectId()),
   });
 
   return schema.validate(players);

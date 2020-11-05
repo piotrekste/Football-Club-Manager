@@ -1,0 +1,14 @@
+.ui .card {
+  max-width: 20vw !important;
+  opacity: 0.8;
+  transition: all 0.4s ease-in-out !important;
+}
+
+.ui .card:hover {
+  opacity: 1.2;
+  transform: scale(1.05);
+}
+
+.ui.four.cards {
+  justify-content: space-around;
+}

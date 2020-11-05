@@ -1,9 +1,49 @@
 import React, { Component } from "react";
-
+import setHeaders from "../../utils/setHeaders";
+import PlayersModal from "./PlayersModal";
+import { Card } from "semantic-ui-react";
+import foto from "../../img/matthew.png";
 class PlayersContent extends Component {
+  state = {
+    players: [],
+  };
+  getAllPlayers = async () => {
+    const response = await fetch(
+      "http://localhost:5000/players/",
+      setHeaders(),
+    );
+    const body = await response.json();
+    this.setState({ players: body });
+    console.log("data", this.state.players);
+  };
+  componentDidMount = async () => {
+    await this.getAllPlayers();
+  };
   render() {
-    return <div className="container"> players</div>;
+    return (
+      <div className="container">
+        <Card.Group itemsPerRow={4}>
+          {this.state.players.map((value, key) => (
+            <Card
+              key={key}
+              className="players-card"
+              image={foto}
+              header={value.first_name + " " + value.last_name}
+              meta={value.position.toUpperCase()}
+              extra={
+                <PlayersModal
+                  players={this.state.players}
+                  id={this.state.players[key]._id}
+                />
+              }
+            />
+          ))}
+        </Card.Group>
+      </div>
+    );
   }
 }
 
 export default PlayersContent;
+
+//moze dodac przycisk rejestracji nowego zawodnika
