@@ -3,14 +3,17 @@ import setHeaders from "../../utils/setHeaders";
 import "./NavBar.css";
 import logo from "../../img/logo.png";
 import { Link } from "react-router-dom";
-import { Input, Menu, Image } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 class NavBar extends Component {
   state = {
     data: [],
     activeItem: "",
   };
   getData = async () => {
-    const response = await fetch("http://localhost:5000/user/", setHeaders());
+    const response = await fetch(
+      "http://localhost:5000/players/",
+      setHeaders(),
+    );
     const body = await response.json();
     this.setState({ data: body });
     console.log("data", this.state.data);
