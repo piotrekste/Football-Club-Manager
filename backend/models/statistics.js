@@ -11,15 +11,19 @@ const statisticsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  assists_season: {
+  assist_season: {
     type: Number,
     default: 0,
   },
-  assists_all: {
+  assist_all: {
     type: Number,
     default: 0,
   },
-  matches: {
+  matches_season: {
+    type: Number,
+    default: 0,
+  },
+  matches_all: {
     type: Number,
     default: 0,
   },
@@ -44,7 +48,8 @@ const validateStatistics = (statistics) => {
     goals_all: Joi.number().min(0),
     assists_season: Joi.number().min(0),
     assists_all: Joi.number().min(0),
-    matches: Joi.number().min(0),
+    matches_season: Joi.number().min(0),
+    matches_all: Joi.number().min(0),
     height: Joi.number().min(0),
     weight: Joi.number().min(0),
     position: Joi.string().valid("right", "left"),

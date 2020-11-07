@@ -50,6 +50,12 @@ class PlayersModal extends Component {
       },
     );
   };
+  myCallbackEdit = async (dataFromChild) => {
+    await this.getStatisticsByID();
+    if (dataFromChild === true) {
+      await this.props.callbackFromParent(dataFromChild);
+    }
+  };
   componentDidMount = async () => {
     await this.getPlayerByID();
     await this.getStatisticsByID();
@@ -127,7 +133,11 @@ class PlayersModal extends Component {
             <br />
             <Divider horizontal>
               {" "}
-              <EditModal />
+              <EditModal
+                statistics={this.state.currentStatistics}
+                player={this.state.currentPlayer}
+                callbackFromParent={this.myCallbackEdit}
+              />
             </Divider>
             <br />
             <Divider horizontal>

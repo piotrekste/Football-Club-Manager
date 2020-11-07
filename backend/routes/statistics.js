@@ -16,4 +16,28 @@ router.get("/:id", async (req, res) => {
   res.send(statistics);
 });
 
+router.put("/:id", async (req, res) => {
+  let statiscics;
+
+  statiscics = await Statistics.findByIdAndUpdate(
+    req.params.id,
+    {
+      goals_all: req.body.goals_all,
+      goals_season: req.body.goals_season,
+      assist_all: req.body.assist_all,
+      assist_season: req.body.assist_season,
+      matches_all: req.body.matches_all,
+      matches_season: req.body.matches_season,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!statiscics)
+    return res.status(404).send("statiscics with the given ID was not found.");
+
+  res.send("statiscics changed");
+});
+
 module.exports = router;
