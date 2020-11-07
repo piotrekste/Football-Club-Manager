@@ -16,6 +16,9 @@ class PlayersContent extends Component {
     this.setState({ players: body });
     console.log("data", this.state.players);
   };
+  myCallbackEdit = async () => {
+    await this.getAllPlayers();
+  };
   componentDidMount = async () => {
     await this.getAllPlayers();
   };
@@ -34,6 +37,7 @@ class PlayersContent extends Component {
                 <PlayersModal
                   players={this.state.players}
                   id={this.state.players[key]._id}
+                  callbackFromParent={this.myCallbackEdit}
                 />
               }
             />

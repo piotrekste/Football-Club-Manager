@@ -16,6 +16,13 @@ router.get("/:id", async (req, res) => {
   res.send(players);
 });
 
+router.delete("/:id", async (req, res) => {
+  let players = await Players.findByIdAndRemove(req.params.id, (err) => {
+    if (err) res.status(404).send(err);
+  });
+
+  res.send(`Players with id ${req.params.id} deleted`);
+});
 module.exports = router;
 
 /**

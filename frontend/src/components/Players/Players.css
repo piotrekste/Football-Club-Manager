@@ -12,3 +12,15 @@
 .ui.four.cards {
   justify-content: space-around;
 }
+
+.edit-modal-description {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.edit-modal-segment {
+  float: left;
+  width: 14vw;
+  height: 18vh;
+}
