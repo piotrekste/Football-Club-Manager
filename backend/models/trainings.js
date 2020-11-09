@@ -13,6 +13,11 @@ const trainingsSchema = new mongoose.Schema({
     default: "",
     maxlength: 420,
   },
+  description: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
   duration: {
     type: Number,
     default: 0,
@@ -23,6 +28,7 @@ const validateTrainings = (trainings) => {
   const schema = Joi.object({
     date: Joi.date(),
     place: Joi.string().max(420),
+    description: Joi.string().max(420),
     duration: Joi.number().min(0),
   });
 

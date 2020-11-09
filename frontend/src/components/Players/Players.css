@@ -24,3 +24,10 @@
   width: 14vw;
   height: 18vh;
 }
+.plan-form {
+  width: 30vw;
+}
+.plan-datepicker {
+  margin-right: auto;
+  margin-left: auto;
+}
