@@ -49,7 +49,9 @@ class TimetableContent extends Component {
     await this.setState({ formatedData: temp });
     await console.log("nie wiem", this.state.formatedData);
   };
-
+  myCallbackAdded = async (dataFromChild) => {
+    await this.getEvents();
+  };
   componentDidMount = async () => {
     await this.getEvents();
   };
@@ -65,7 +67,10 @@ class TimetableContent extends Component {
           style={{ height: "85vh" }}
           onSelectEvent={this.getEventName}
         />
-        <TodaysTasks id={this.state.selectedEvent} />
+        <TodaysTasks
+          id={this.state.selectedEvent}
+          callbackFromParent={this.myCallbackAdded}
+        />
       </div>
     );
   }

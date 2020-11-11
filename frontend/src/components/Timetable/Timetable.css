@@ -3,14 +3,43 @@
   padding: 1em;
   float: left;
 }
-
+.plan-form {
+  width: 100%;
+}
 .extras-container {
   background-color: #fee715;
   float: left;
   width: 25vw;
-  height: 80vh;
+  height: 60vh;
   margin-left: 2vw;
   margin-top: 2vh;
   border: 2px solid rgb(0, 0, 0);
   border-radius: 30px 30px 30px 30px;
+  font-size: 22px;
+
+  text-align: center;
+}
+
+.todays-task-container {
+  margin-top: 4vh;
+  height: 10vh;
+  max-width: 80vw;
+}
+
+.selected-task-container {
+  height: 22vh;
+  max-width: 80vw;
+  margin-top: 4vh;
+}
+.addtask-container {
+  margin-top: 5vh;
+}
+.map-container {
+  max-height: 40vh !important;
+  max-width: 50vw;
+}
+
+.task-map {
+  max-height: 90% !important;
+  width: 95% !important;
 }

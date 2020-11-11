@@ -27,7 +27,7 @@ class EditModal extends Component {
   };
 
   handlePlus = (e) => {
-    const { value, name } = e.target;
+    const { name } = e.target;
     //await this.setState({ [name]: value });
     // const { goals_all} = this.state;
     if (name === "goals_all") {
@@ -51,7 +51,7 @@ class EditModal extends Component {
   };
 
   handleMinus = (e) => {
-    const { value, name } = e.target;
+    const { name } = e.target;
     //await this.setState({ [name]: value });
     // const { goals_all} = this.state;
     if (name === "goals_all" && this.state.goals_all > 0) {

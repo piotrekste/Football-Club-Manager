@@ -20,7 +20,7 @@ class PlanModal extends Component {
     description: "",
   };
   handleChange = (e) => {
-    const { value, name } = e.target;
+    const { name } = e.target;
     this.setState({ [name]: e.target.value });
   };
   addTraining = async () => {

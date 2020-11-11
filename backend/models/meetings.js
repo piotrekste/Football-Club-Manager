@@ -8,7 +8,12 @@ const meetingsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  location: {
+  city: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
+  street: {
     type: String,
     default: "",
     maxlength: 420,
@@ -23,7 +28,8 @@ const meetingsSchema = new mongoose.Schema({
 const validateMeetings = (meetings) => {
   const schema = Joi.object({
     date: Joi.date(),
-    location: Joi.string().max(420),
+    city: Joi.string().max(420),
+    street: Joi.string().max(420),
     description: Joi.string().max(420),
   });
 
