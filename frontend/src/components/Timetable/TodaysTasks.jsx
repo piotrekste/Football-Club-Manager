@@ -2,9 +2,24 @@ import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
 import AddTask from "./AddTask";
+import { Divider, List } from "semantic-ui-react";
+
+import ReactMapGL from "react-map-gl";
+import Geocoder from "react-map-gl";
+
 class TodaysTasks extends Component {
   state = {
     currentTask: [],
+
+    viewport: {
+      width: 400,
+      mapboxApiAccessToken:
+        "pk.eyJ1IjoicGlvdHJla3N0ZTk4IiwiYSI6ImNraGRvNW01ejAwMGcyeWx1emloYWE1M24ifQ.81Bk2we1FuNo3BlVeLQ0IQ",
+      height: 300,
+      latitude: 37.7577,
+      longitude: -122.4376,
+      zoom: 15,
+    },
   };
   getMeetingByID = async () => {
     await axios({
@@ -20,29 +35,41 @@ class TodaysTasks extends Component {
       },
     );
   };
-
+  myCallbackAddTask = async (dataFromChild) => {
+    await this.props.callbackFromParent(dataFromChild);
+  };
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.id !== this.props.id) {
       await this.getMeetingByID();
     }
   };
+
+  componentDidMount = async () => {
+    //await this.getGeocode();
+  };
+
   render() {
     return (
       <div className="extras-container">
-        <br />
-        {this.props.id}
-        {this.state.currentTask.description}
-        <br /> <br />
-        {this.state.currentTask.city}
-        <br /> <br />
-        {this.state.currentTask.street}
-        <br /> <br />
-        {this.state.currentTask.date}
-        <br />
-        <br /> <br />
-        <br /> <br /> <br /> <br /> <br />
-        <br /> <br /> <br /> <br />
-        <AddTask />
+        <div className="todays-task-container">
+          <p>Aby wyświetlic szczegóły - wybierz zadanie z kalendarza!</p>
+        </div>
+        <Divider />
+        <div className="selected-task-container">
+          <List>
+            <List.Item> {this.state.currentTask.description}</List.Item>
+            <List.Item>{this.state.currentTask.city}</List.Item>
+            <List.Item> {this.state.currentTask.street}</List.Item>
+            <List.Item> {this.state.currentTask.date}</List.Item>
+          </List>
+        </div>
+
+        <Divider />
+
+        <div className="addtask-container">
+          {" "}
+          <AddTask callbackFromParent={this.myCallbackAddTask} />
+        </div>
       </div>
     );
   }
@@ -51,21 +78,13 @@ class TodaysTasks extends Component {
 export default TodaysTasks;
 
 /**
- *    <Segment>
-            <Divider horizontal></Divider>
-
-            <Button
-              color="teal"
-              content="EDYTUJ"
-              icon="add"
-              labelPosition="left"
-            />
-            <Divider horizontal></Divider>
-            <Button
-              color="teal"
-              content="ZAPLANUJ"
-              icon="add"
-              labelPosition="left"
-            />
-          </Segment>
+ *  <div className="map-container">
+          {" "}
+         
+          <ReactMapGL
+            className="task-map"
+            {...this.state.viewport}
+            onViewportChange={(viewport) => this.setState({ viewport })}
+          ></ReactMapGL>
+        </div>
  */

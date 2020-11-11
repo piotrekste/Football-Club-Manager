@@ -8,75 +8,100 @@ class AddTask extends Component {
   state = {
     open: false,
     startDate: new Date(),
-    place: "",
+    city: "",
+    street: "",
     description: "",
+    reload: false,
   };
   handleChange = (e) => {
-    const { value, name } = e.target;
+    const { name } = e.target;
     this.setState({ [name]: e.target.value });
   };
   addTask = async () => {
     await axios({
-      url: `http://localhost:5000/trainings/`,
+      url: `http://localhost:5000/meetings/`,
       method: "post",
       headers: setHeaders(),
       data: {
-        place: this.state.place,
+        city: this.state.city,
+        street: this.state.street,
         description: this.state.description,
         date: this.state.startDate,
       },
     }).then((res) => this.setState({ body: res.data._id }));
+    await this.props.callbackFromParent(!this.state.reload);
+  };
+  handleAddButton = () => {
+    this.addTask();
+    this.setState({ open: false });
   };
   render() {
     return (
       <Modal
+        size="tiny"
         onClose={() => this.setState({ open: false })}
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
-        trigger={<Button>Dodaj nowe zadanie</Button>}
+        trigger={<Button color="vk"> Dodaj nowe zadanie</Button>}
       >
-        <Modal.Header>dodawanie taska</Modal.Header>
+        <Modal.Header>Dodaj nowe zadanie</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Header>dodawanie zadania</Header>
             <Form className="plan-form">
               <TextArea
                 rows={1}
-                name="place"
-                placeholder="Wpisz miejsce treningu"
-                style={{ minHeight: 50, maxHeight: 50, marginBottom: 30 }}
-                value={this.state.place}
+                name="city"
+                placeholder="Wpisz miasto"
+                style={{
+                  minHeight: "6vh",
+                  maxHeight: "6vh",
+                  marginBottom: "3vh",
+                }}
+                value={this.state.city}
+                onChange={this.handleChange}
+              />
+              <TextArea
+                rows={1}
+                name="street"
+                placeholder="Wpisz ulice"
+                style={{
+                  minHeight: "6vh",
+                  maxHeight: "6vh",
+                  marginBottom: "3vh",
+                }}
+                value={this.state.street}
                 onChange={this.handleChange}
               />
               <TextArea
                 rows={3}
                 name="description"
-                placeholder="Opis "
-                style={{ minHeight: 100, maxHeight: 100, marginBottom: 30 }}
+                placeholder="Dodatkowe informacje"
+                style={{
+                  minHeight: "12vh",
+                  maxHeight: "12vh",
+                  marginBottom: "3vh",
+                }}
                 value={this.state.desription}
                 onChange={this.handleChange}
+              />{" "}
+              Wybierz datę: <br />
+              <DatePicker
+                className="plan-datepicker"
+                selected={this.state.startDate}
+                onChange={(date) => this.setState({ startDate: date })}
               />
-              <div>
-                {" "}
-                <DatePicker
-                  className="plan-datepicker"
-                  selected={this.state.startDate}
-                  onChange={(date) => this.setState({ startDate: date })}
-                />
-              </div>{" "}
             </Form>
-            <Button>ok</Button>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="black" onClick={() => this.setState({ open: false })}>
-            Nope
+          <Button negative onClick={() => this.setState({ open: false })}>
+            Anuluj
           </Button>
           <Button
-            content="Yep, that's me"
+            content="Dodaj"
             labelPosition="right"
             icon="checkmark"
-            onClick={() => this.setState({ open: false })}
+            onClick={this.handleAddButton}
             positive
           />
         </Modal.Actions>
