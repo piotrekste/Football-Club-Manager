@@ -9,6 +9,11 @@ const buildingsSchema = new mongoose.Schema({
     default: "",
     maxlength: 420,
   },
+  description: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
   capacity: {
     type: Number,
     default: 0,
@@ -17,13 +22,19 @@ const buildingsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  income: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const validateBuildings = (buildings) => {
   const schema = Joi.object({
     name: Joi.string().max(420),
+    description: Joi.string().max(420),
     capacity: Joi.number().min(0),
     costs: Joi.number().min(0),
+    income: Joi.number().min(0),
   });
 
   return schema.validate(buildings);
