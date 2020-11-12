@@ -1,3 +1,12 @@
 .buildings-card {
   width: 100% !important;
 }
+
+.building-header {
+  margin-top: 2vh !important;
+
+  font-size: 24px !important;
+}
+.building-extra {
+  margin-top: 4vh !important;
+}

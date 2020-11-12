@@ -1,0 +1,16 @@
+.homepage-entry-container {
+  width: 100%;
+  height: 30vh;
+  background-color: ivory;
+}
+.homepage-statistics-container {
+  clear: both;
+  width: 30vw;
+  float: left;
+  margin-top: 6vh;
+}
+.homepage-calendar-container {
+  width: 60vw;
+  padding: 1em;
+  float: left;
+}

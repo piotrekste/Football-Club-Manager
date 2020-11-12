@@ -35,15 +35,16 @@ class BuildingsContent extends Component {
               />
 
               <Item.Content>
-                <Item.Header as="a">{value.name}</Item.Header>
+                <Item.Header className="building-header">
+                  {value.name}
+                </Item.Header>
 
                 <Item.Description>{value.description}</Item.Description>
-                <Item.Extra>
-                  <Button primary floated="right">
-                    Buy tickets
-                    <Icon name="right chevron" />
-                  </Button>
-                  <Label>Moze wykorzstyam label</Label>
+                <Item.Extra className="building-extra">
+                  <Label>Pojemność: {value.capacity}</Label> <br />
+                  <Label>Miesięczny koszt utrzymania: {value.costs}</Label>
+                  <br />
+                  <Label>Miesięczny dochód: {value.income}</Label>
                 </Item.Extra>
               </Item.Content>
             </Item>
