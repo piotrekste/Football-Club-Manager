@@ -14,21 +14,32 @@ class TimetableContent extends Component {
     unformatedMatchesData: [],
     formatedMatchesData: [],
     selectedEvent: "",
+    currentID: localStorage.getItem("id"),
+    currentPerson: localStorage.getItem("role"),
   };
-
+  getMeetingsId = async () => {
+    if (this.state.currentPerson === "manager") {
+      const response = await fetch(
+        `http://localhost:5000/managers/${this.state.currentID}`,
+        setHeaders(),
+      );
+      const body = await response.json();
+      this.setState({ userData: body });
+    }
+  };
   getEvents = async () => {
-    const response = await fetch(
-      "http://localhost:5000/meetings/",
-      setHeaders(),
-    );
-    const body = await response.json();
-    this.setState({ unformatedData: body });
-    // console.log("unformatedData", this.state.unformatedData);
+    for (var i = 0; i < this.state.userData.meeting_id.length; i++) {
+      const response = await fetch(
+        `http://localhost:5000/meetings/${this.state.userData.meeting_id[i]}`,
+        setHeaders(),
+      );
+      const body = await response.json();
+      await this.state.unformatedData.push(body);
+    }
 
     var temp = [];
     for (var i = 0; i < this.state.unformatedData.length; i++) {
       temp[i] = {
-        // start: this.state.unformatedData[i].date,
         start: moment(this.state.unformatedData[i].date).toDate(),
         end: moment(this.state.unformatedData[i].date).add(1, "hours").toDate(),
         title: this.state.unformatedData[i].description,
@@ -57,15 +68,15 @@ class TimetableContent extends Component {
         end: moment(this.state.unformatedMatchesData[i].date)
           .add(1, "hours")
           .toDate(),
-        title: this.state.unformatedMatchesData[i].opponent_name,
+        title: this.state.unformatedMatchesData[i].description,
         id: this.state.unformatedMatchesData[i]._id,
       };
     }
 
     await this.setState({ formatedMatchesData: temp });
-    await console.log("mecze", this.state.formatedMatchesData);
   };
   componentDidMount = async () => {
+    await this.getMeetingsId();
     await this.getEvents();
     await this.getAllMatches();
 

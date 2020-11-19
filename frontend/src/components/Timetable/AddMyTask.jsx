@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
-import { Button, Modal, TextArea, Form } from "semantic-ui-react";
+import { Button, Header, Modal, TextArea, Form } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-class StaffModal extends Component {
+class AddTask extends Component {
   state = {
     open: false,
     startDate: new Date(),
@@ -13,22 +12,6 @@ class StaffModal extends Component {
     street: "",
     description: "",
     reload: false,
-    currentStaff: [],
-  };
-  getStaffByID = async () => {
-    await axios({
-      url: `http://localhost:5000/staffs/${this.props.id}`,
-      method: "get",
-      headers: setHeaders(),
-    }).then(
-      (response) => {
-        this.setState({ currentStaff: response.data });
-        //  console.log("pojedynczo", this.state.currentPlayer);
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
   };
   handleChange = (e) => {
     const { name } = e.target;
@@ -59,9 +42,9 @@ class StaffModal extends Component {
         onClose={() => this.setState({ open: false })}
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
-        trigger={<Button color="vk"> Przydziel zadanie</Button>}
+        trigger={<Button color="vk"> Dodaj nowe moje zadanie</Button>}
       >
-        <Modal.Header>Dodaj nowe zadanie dla: {this.props.id} </Modal.Header>
+        <Modal.Header>Dodaj nowe moje zadanie</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form className="plan-form">
@@ -126,4 +109,4 @@ class StaffModal extends Component {
     );
   }
 }
-export default StaffModal;
+export default AddTask;

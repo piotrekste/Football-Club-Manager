@@ -3,6 +3,7 @@ import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
 import HomepageTimetable from "./HomepageTimetable";
 import { Statistic } from "semantic-ui-react";
+import Store from "../../Store";
 class HomepageContent extends Component {
   state = {
     sumSalary: 0,
@@ -13,7 +14,7 @@ class HomepageContent extends Component {
     first_name: "",
     last_name: "",
   };
-
+  static contextType = Store;
   getSalary = async () => {
     const response = await fetch(
       "http://localhost:5000/contracts/",
@@ -63,7 +64,8 @@ class HomepageContent extends Component {
       <div className="container">
         {" "}
         <div className="homepage-entry-container">
-          Witaj {this.state.first_name} {this.state.last_name}
+          Witaj {this.context.role && " menadzeru!! "}
+          {this.state.first_name} {this.state.last_name}
         </div>
         <div className="homepage-statistics-container">
           <Statistic.Group widths="1">

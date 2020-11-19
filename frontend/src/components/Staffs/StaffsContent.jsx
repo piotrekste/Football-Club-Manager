@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-//import PlayersModal from "./PlayersModal";
+import StaffModal from "./StaffModal";
 import { Card } from "semantic-ui-react";
 import foto from "../../img/patrick.png";
 class StaffsContent extends Component {
@@ -30,6 +30,12 @@ class StaffsContent extends Component {
               meta={value.role.toUpperCase()}
               //extra={<PlayersModal players={this.state.players} />}
               //tutaj zaplanuj
+              extra={
+                <StaffModal
+                  id={this.state.staffs[key]._id}
+                  // callbackFromParent={this.myCallbackEdit}
+                />
+              }
             />
           ))}
         </Card.Group>

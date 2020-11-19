@@ -42,9 +42,9 @@ class AddTask extends Component {
         onClose={() => this.setState({ open: false })}
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
-        trigger={<Button color="vk"> Dodaj nowe zadanie</Button>}
+        trigger={<Button color="vk"> Dodaj nowe globalne zadanie</Button>}
       >
-        <Modal.Header>Dodaj nowe zadanie</Modal.Header>
+        <Modal.Header>Dodaj nowe globalne zadanie</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form className="plan-form">
