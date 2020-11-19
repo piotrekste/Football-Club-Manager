@@ -25,7 +25,7 @@ class PlanModal extends Component {
   };
   addTraining = async () => {
     await axios({
-      url: `http://localhost:5000/trainings/`,
+      url: `http://localhost:5000/meetings/`,
       method: "post",
       headers: setHeaders(),
       data: {
@@ -33,7 +33,9 @@ class PlanModal extends Component {
         description: this.state.description,
         date: this.state.startDate,
       },
-    }).then((res) => this.setState({ body: res.data._id }));
+    }).then((res) => this.setState({ body: res.data._id, open: false }));
+
+    //dodac dodawanie do playera
   };
   render() {
     return (

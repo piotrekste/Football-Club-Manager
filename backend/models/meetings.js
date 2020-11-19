@@ -13,10 +13,24 @@ const meetingsSchema = new mongoose.Schema({
     default: "",
     maxlength: 420,
   },
+  title: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
+  place: {
+    type: String,
+    default: "",
+    maxlength: 420,
+  },
   street: {
     type: String,
     default: "",
     maxlength: 420,
+  },
+  duration: {
+    type: Number,
+    default: 0,
   },
   description: {
     type: String,
@@ -31,6 +45,7 @@ const validateMeetings = (meetings) => {
     city: Joi.string().max(420),
     street: Joi.string().max(420),
     description: Joi.string().max(420),
+    duration: Joi.number().min(0),
   });
 
   return schema.validate(meetings);

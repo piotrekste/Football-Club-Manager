@@ -30,7 +30,7 @@ const managersSchema = new mongoose.Schema({
     maxlength: 420,
   },
 
-  meetings_id: {
+  meeting_id: {
     type: [ObjectId],
     required: true,
     ref: "Meetings",
