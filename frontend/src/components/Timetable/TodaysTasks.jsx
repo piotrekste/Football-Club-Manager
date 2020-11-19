@@ -9,6 +9,7 @@ import Store from "../../Store";
 class TodaysTasks extends Component {
   state = {
     currentTask: [],
+    flag: false,
   };
   static contextType = Store;
   getMeetingByID = async () => {
@@ -18,23 +19,34 @@ class TodaysTasks extends Component {
       headers: setHeaders(),
     }).then(
       (response) => {
-        this.setState({ currentTask: response.data });
+        this.setState({ currentTask: response.data, flag: false });
+        var temp = this.state.currentTask;
+        temp.date = temp.date.slice(0, 10);
+        this.setState({ currentTask: temp });
       },
       (error) => {
-        axios({
-          url: `http://localhost:5000/matches/${this.props.id}`,
-          method: "get",
-          headers: setHeaders(),
-        }).then(
-          (response) => {
-            this.setState({ currentTask: response.data });
-          },
-          (error) => {
-            console.log(error);
-          },
-        );
+        this.setState({ flag: true });
+        console.log(error);
       },
     );
+
+    if (this.state.flag) {
+      await axios({
+        url: `http://localhost:5000/globals/${this.props.id}`,
+        method: "get",
+        headers: setHeaders(),
+      }).then(
+        (response) => {
+          this.setState({ currentTask: response.data, flag: false });
+          var temp = this.state.currentTask;
+          temp.date = temp.date.slice(0, 10);
+          this.setState({ currentTask: temp });
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+    }
   };
   myCallbackAddTask = async (dataFromChild) => {
     await this.props.callbackFromParent(dataFromChild);

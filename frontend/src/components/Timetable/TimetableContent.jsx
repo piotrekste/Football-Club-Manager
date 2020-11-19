@@ -12,8 +12,8 @@ class TimetableContent extends Component {
     unformatedData: [],
     formatedData: [],
     formatedAllData: [],
-    unformatedMatchesData: [],
-    formatedMatchesData: [],
+    unformatedGlobalsData: [],
+    formatedGlobalsData: [],
     selectedEvent: "",
     currentID: localStorage.getItem("id"),
     currentPerson: localStorage.getItem("role"),
@@ -65,29 +65,29 @@ class TimetableContent extends Component {
     await console.log("nie wiem", this.state.formatedData);
   };
 
-  getAllMatches = async () => {
+  getAllGlobals = async () => {
     const response = await fetch(
-      "http://localhost:5000/matches/",
+      "http://localhost:5000/globals/",
       setHeaders(),
     );
     const body = await response.json();
-    this.setState({ unformatedMatchesData: body });
+    this.setState({ unformatedGlobalsData: body });
     // console.log("unformatedData", this.state.unformatedData);
 
     var temp = [];
-    for (var i = 0; i < this.state.unformatedMatchesData.length; i++) {
+    for (var i = 0; i < this.state.unformatedGlobalsData.length; i++) {
       temp[i] = {
         // start: this.state.unformatedData[i].date,
-        start: moment(this.state.unformatedMatchesData[i].date).toDate(),
-        end: moment(this.state.unformatedMatchesData[i].date)
+        start: moment(this.state.unformatedGlobalsData[i].date).toDate(),
+        end: moment(this.state.unformatedGlobalsData[i].date)
           .add(1, "hours")
           .toDate(),
-        title: this.state.unformatedMatchesData[i].description,
-        id: this.state.unformatedMatchesData[i]._id,
+        title: this.state.unformatedGlobalsData[i].description,
+        id: this.state.unformatedGlobalsData[i]._id,
       };
     }
 
-    await this.setState({ formatedMatchesData: temp });
+    await this.setState({ formatedGlobalsData: temp });
   };
   myCallbackAdded = async (dataFromChild) => {
     await this.getEvents();
@@ -95,9 +95,9 @@ class TimetableContent extends Component {
   componentDidMount = async () => {
     await this.getMeetingsId();
     await this.getEvents();
-    await this.getAllMatches();
+    await this.getAllGlobals();
     var temp1 = this.state.formatedData;
-    var temp2 = this.state.formatedMatchesData;
+    var temp2 = this.state.formatedGlobalsData;
     var temp3 = temp1.concat(temp2);
     await this.setState({ formatedAllData: temp3 });
   };

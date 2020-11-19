@@ -30,8 +30,8 @@ app.use("/contracts", contracts);
 const managers = require("./routes/managers");
 app.use("/managers", managers);
 
-const matches = require("./routes/matches");
-app.use("/matches", matches);
+//const matches = require("./routes/matches");
+//app.use("/matches", matches);
 
 const meetings = require("./routes/meetings");
 app.use("/meetings", meetings);
@@ -44,6 +44,9 @@ app.use("/staffs", staffs);
 
 const trainings = require("./routes/trainings");
 app.use("/trainings", trainings);
+
+const globals = require("./routes/globals");
+app.use("/globals", globals);
 
 const statistics = require("./routes/statistics");
 app.use("/statistics", statistics);
