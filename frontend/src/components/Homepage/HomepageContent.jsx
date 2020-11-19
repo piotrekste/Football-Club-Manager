@@ -10,6 +10,8 @@ class HomepageContent extends Component {
     sumIncome: 0,
     allBuildings: [],
     buildingsCosts: 0,
+    first_name: "",
+    last_name: "",
   };
 
   getSalary = async () => {
@@ -51,6 +53,8 @@ class HomepageContent extends Component {
     //await console.log("nie wiem", this.state.formatedData);
   };
   componentDidMount = async () => {
+    await this.setState({ first_name: localStorage.getItem("first_name") });
+    await this.setState({ last_name: localStorage.getItem("last_name") });
     await this.getSalary();
     await this.getIncome();
   };
@@ -58,7 +62,9 @@ class HomepageContent extends Component {
     return (
       <div className="container">
         {" "}
-        <div className="homepage-entry-container">Witaj Imie i nazwisko</div>
+        <div className="homepage-entry-container">
+          Witaj {this.state.first_name} {this.state.last_name}
+        </div>
         <div className="homepage-statistics-container">
           <Statistic.Group widths="1">
             <Statistic>
