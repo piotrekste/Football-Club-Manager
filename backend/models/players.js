@@ -41,18 +41,23 @@ const playersSchema = new mongoose.Schema({
 
   statistics_id: {
     type: [ObjectId],
-    required: true,
+    default: [],
     ref: "Statistics",
   },
   contract_id: {
     type: [ObjectId],
-    required: true,
+    default: [],
     ref: "Contracts",
   },
   trainings_id: {
     type: [ObjectId],
-    required: true,
+    default: [],
     ref: "Trainings",
+  },
+  meeting_id: {
+    type: [ObjectId],
+    default: [],
+    ref: "Meetings",
   },
 });
 
@@ -73,6 +78,7 @@ const validatePlayers = (players) => {
     statistics_id: Joi.array().items(Joi.objectId()),
     contract_id: Joi.array().items(Joi.objectId()),
     trainings_id: Joi.array().items(Joi.objectId()),
+    meeting_id: Joi.array().items(Joi.objectId()),
   });
 
   return schema.validate(players);

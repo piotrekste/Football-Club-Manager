@@ -3,6 +3,7 @@ import setHeaders from "../../utils/setHeaders";
 import StaffModal from "./StaffModal";
 import { Card } from "semantic-ui-react";
 import foto from "../../img/patrick.png";
+import ShowTimetable from "./ShowTimetable";
 class StaffsContent extends Component {
   state = {
     staffs: [],
@@ -14,6 +15,9 @@ class StaffsContent extends Component {
     console.log("data", this.state.staffs);
   };
   componentDidMount = async () => {
+    await this.getAllStaffs();
+  };
+  myCallbackEdit = async (dataFromChild) => {
     await this.getAllStaffs();
   };
   render() {
@@ -31,10 +35,13 @@ class StaffsContent extends Component {
               //extra={<PlayersModal players={this.state.players} />}
               //tutaj zaplanuj
               extra={
-                <StaffModal
-                  id={this.state.staffs[key]._id}
-                  // callbackFromParent={this.myCallbackEdit}
-                />
+                <>
+                  <StaffModal
+                    id={this.state.staffs[key]._id}
+                    callbackFromParent={this.myCallbackEdit}
+                  />
+                  <ShowTimetable id={this.state.staffs[key]._id} />
+                </>
               }
             />
           ))}

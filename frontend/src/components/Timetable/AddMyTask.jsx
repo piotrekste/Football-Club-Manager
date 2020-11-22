@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
-import { Button, Header, Modal, TextArea, Form } from "semantic-ui-react";
+import { Button, Modal, TextArea, Form } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 class AddTask extends Component {
@@ -29,11 +29,34 @@ class AddTask extends Component {
         date: this.state.startDate,
       },
     }).then((res) => this.setState({ body: res.data._id }));
-    await this.props.callbackFromParent(!this.state.reload);
   };
-  handleAddButton = () => {
-    this.addTask();
-    this.setState({ open: false });
+  addTaskID = async () => {
+    await axios({
+      url: `http://localhost:5000/managers/${localStorage.getItem(
+        "id",
+      )}/meeting_id`,
+      method: "put",
+      headers: setHeaders(),
+      data: {
+        meeting_id: {
+          _id: this.state.body,
+        },
+      },
+    }).then(
+      (res) => {},
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
+
+  handleAddButton = async () => {
+    await this.addTask();
+
+    await this.addTaskID();
+
+    await this.props.callbackFromParent(!this.state.reload);
+    await this.setState({ open: false });
   };
   render() {
     return (

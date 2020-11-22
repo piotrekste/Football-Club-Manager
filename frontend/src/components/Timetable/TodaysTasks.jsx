@@ -80,6 +80,7 @@ class TodaysTasks extends Component {
           {this.context.role && (
             <>
               <AddTask callbackFromParent={this.myCallbackAddTask} />
+              <p></p>
               <AddMyTask callbackFromParent={this.myCallbackAddTask} />
             </>
           )}

@@ -50,6 +50,33 @@ router.post("/", async (req, res) => {
     .send(_.pick(user, ["_id", "first_name", "last_name", "email"]));
 });
 
+router.put("/:id/meeting_id", async (req, res) => {
+  // const Manager = res.locals.models.plant;
+
+  const players = await Players.findById(req.params.id);
+  if (!players)
+    res.status(404).send(`Players with id ${req.params.id} not found!`);
+  res.send(players);
+
+  players.meeting_id.push(req.body.meeting_id);
+
+  let playerss;
+
+  playerss = await Players.findByIdAndUpdate(
+    req.params.id,
+    {
+      meeting_id: players.meeting_id,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!playerss)
+    return res.status(404).send("Player with the given ID was not found.");
+
+  res.send(playerss);
+});
 module.exports = router;
 
 /**

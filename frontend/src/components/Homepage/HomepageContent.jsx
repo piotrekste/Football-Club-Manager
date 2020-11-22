@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-import axios from "axios";
+
 import HomepageTimetable from "./HomepageTimetable";
 import { Statistic } from "semantic-ui-react";
 import Store from "../../Store";

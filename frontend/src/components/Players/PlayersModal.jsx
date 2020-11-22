@@ -12,6 +12,7 @@ import {
 import foto from "../../img/matthew.png";
 import PlanModal from "./PlanModal";
 import EditModal from "./EditModal";
+import ShowTimetable from "./ShowTimetable";
 class PlayersModal extends Component {
   state = {
     open: false,
@@ -102,6 +103,7 @@ class PlayersModal extends Component {
                 <Statistic.Value>
                   {this.state.currentStatistics.assist_all}
                 </Statistic.Value>
+
                 <Statistic.Label>Asyst w karierze</Statistic.Label>
               </Statistic>
               <Statistic>
@@ -141,7 +143,14 @@ class PlayersModal extends Component {
             </Divider>
             <br />
             <Divider horizontal>
-              <PlanModal />
+              <PlanModal
+                id={this.props.id}
+                callbackFromParent={this.myCallbackEdit}
+              />
+            </Divider>
+            <br />
+            <Divider horizontal>
+              <ShowTimetable id={this.props.id} />
             </Divider>
           </Modal.Description>
         </Modal.Content>

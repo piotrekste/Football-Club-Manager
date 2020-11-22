@@ -15,5 +15,13 @@ router.get("/:id", async (req, res) => {
     res.status(404).send(`globals with id ${req.params.id} not found!`);
   res.send(globals);
 });
+router.post("/", async (req, res) => {
+  //const { error } = validateFlashset(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+
+  let globals = new Globals(req.body);
+  await globals.save();
+  res.send(globals);
+});
 
 module.exports = router;

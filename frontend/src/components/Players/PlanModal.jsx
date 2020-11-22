@@ -37,6 +37,29 @@ class PlanModal extends Component {
 
     //dodac dodawanie do playera
   };
+  addTrainingID = async () => {
+    await axios({
+      url: `http://localhost:5000/players/${this.props.id}/meeting_id`,
+      method: "put",
+      headers: setHeaders(),
+      data: {
+        meeting_id: {
+          _id: this.state.body,
+        },
+      },
+    }).then(
+      (res) => {},
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
+  handleAddButton = async () => {
+    await this.addTraining();
+    await this.addTrainingID();
+    await this.props.callbackFromParent(!this.state.reload);
+    await this.setState({ open: false });
+  };
   render() {
     return (
       <>
@@ -78,7 +101,7 @@ class PlanModal extends Component {
                   />
                 </div>{" "}
               </Form>
-              <Button onClick={this.addTraining}>ok</Button>
+              <Button onClick={this.handleAddButton}>ok</Button>
             </Modal.Description>
           </Modal.Content>
 

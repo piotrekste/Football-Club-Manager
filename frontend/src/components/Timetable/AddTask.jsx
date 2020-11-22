@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
-import { Button, Header, Modal, TextArea, Form } from "semantic-ui-react";
+import { Button, Modal, TextArea, Form } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 class AddTask extends Component {
@@ -19,7 +19,7 @@ class AddTask extends Component {
   };
   addTask = async () => {
     await axios({
-      url: `http://localhost:5000/meetings/`,
+      url: `http://localhost:5000/globals/`,
       method: "post",
       headers: setHeaders(),
       data: {

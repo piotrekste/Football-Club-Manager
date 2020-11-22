@@ -4,7 +4,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import TodaysTasks from "./TodaysTasks";
-
+import Store from "../../Store";
 const localizer = momentLocalizer(moment);
 
 class TimetableContent extends Component {
@@ -26,22 +26,37 @@ class TimetableContent extends Component {
       },
     ],
   };
+  static contextType = Store;
   getMeetingsId = async () => {
-    if (this.state.currentPerson === "manager") {
-      const response = await fetch(
-        `http://localhost:5000/managers/${this.state.currentID}`,
-        setHeaders(),
-      );
-      const body = await response.json();
-      this.setState({ userData: body });
-    }
-    console.log("dane menadzera", this.state.userData);
+    const response = await fetch(
+      `http://localhost:5000/managers/${this.state.currentID}`,
+      setHeaders(),
+    );
+    const body = await response.json();
+    this.setState({ userData: body });
+  };
+  getPlayerMeetingId = async () => {
+    const response = await fetch(
+      `http://localhost:5000/players/${this.state.currentID}`,
+      setHeaders(),
+    );
+    const body = await response.json();
+    this.setState({ userData: body });
+  };
+  getStaffMeetingId = async () => {
+    const response = await fetch(
+      `http://localhost:5000/staffs/${this.state.currentID}`,
+      setHeaders(),
+    );
+    const body = await response.json();
+    this.setState({ userData: body });
   };
   getEventName = (e) => {
     console.log("event name", e);
     this.setState({ selectedEvent: e.id });
   };
   getEvents = async () => {
+    // await this.setState({ unformatedData: [] });
     for (var i = 0; i < this.state.userData.meeting_id.length; i++) {
       const response = await fetch(
         `http://localhost:5000/meetings/${this.state.userData.meeting_id[i]}`,
@@ -52,7 +67,7 @@ class TimetableContent extends Component {
     }
 
     var temp = [];
-    for (var i = 0; i < this.state.unformatedData.length; i++) {
+    for (i = 0; i < this.state.unformatedData.length; i++) {
       temp[i] = {
         start: moment(this.state.unformatedData[i].date).toDate(),
         end: moment(this.state.unformatedData[i].date).add(1, "hours").toDate(),
@@ -90,10 +105,30 @@ class TimetableContent extends Component {
     await this.setState({ formatedGlobalsData: temp });
   };
   myCallbackAdded = async (dataFromChild) => {
+    /*
+    await this.setState({
+      unformatedData: [],
+      formatedData: [],
+      formatedAllData: [],
+    });
     await this.getEvents();
+    var temp1 = this.state.formatedData;
+    var temp2 = this.state.formatedGlobalsData;
+    var temp3 = temp1.concat(temp2);
+    await this.setState({ formatedAllData: temp3 });*/
+    document.location.href = "/timetable";
   };
   componentDidMount = async () => {
-    await this.getMeetingsId();
+    if (this.state.currentPerson === "manager") {
+      await this.getMeetingsId();
+    }
+
+    if (this.state.currentPerson === "player") {
+      await this.getPlayerMeetingId();
+    }
+    if (this.state.currentPerson === "staff") {
+      await this.getStaffMeetingId();
+    }
     await this.getEvents();
     await this.getAllGlobals();
     var temp1 = this.state.formatedData;

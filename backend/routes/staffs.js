@@ -14,7 +14,32 @@ router.get("/:id", async (req, res) => {
   if (!staff) res.status(404).send(`staff with id ${req.params.id} not found!`);
   res.send(staff);
 });
+router.put("/:id/meeting_id", async (req, res) => {
+  // const Manager = res.locals.models.plant;
 
+  const staff = await Staff.findById(req.params.id);
+  if (!staff) res.status(404).send(`staff with id ${req.params.id} not found!`);
+  res.send(staff);
+
+  staff.meeting_id.push(req.body.meeting_id);
+
+  let stafff;
+
+  stafff = await Staff.findByIdAndUpdate(
+    req.params.id,
+    {
+      meeting_id: staff.meeting_id,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!stafff)
+    return res.status(404).send("staff with the given ID was not found.");
+
+  res.send(stafff);
+});
 router.post("/", async (req, res) => {
   /*
   validateLogin = (req) => {

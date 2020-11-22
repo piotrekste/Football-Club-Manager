@@ -1,5 +1,4 @@
-import React, { Component, useContext } from "react";
-import setHeaders from "../../utils/setHeaders";
+import React, { Component } from "react";
 import "./NavBar.css";
 import logo from "../../img/logo.png";
 import { Link } from "react-router-dom";

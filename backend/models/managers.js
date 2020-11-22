@@ -32,7 +32,7 @@ const managersSchema = new mongoose.Schema({
 
   meeting_id: {
     type: [ObjectId],
-    required: true,
+    default: "",
     ref: "Meetings",
   },
 });
@@ -45,7 +45,7 @@ const validateManagers = (managers) => {
     password: Joi.string().max(420),
     login: Joi.string().max(420),
 
-    meetings_id: Joi.array().items(Joi.objectId()),
+    meeting_id: Joi.array().items(Joi.objectId()),
   });
 
   return schema.validate(managers);

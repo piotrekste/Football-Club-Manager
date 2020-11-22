@@ -40,4 +40,32 @@ router.post("/", async (req, res) => {
     .header("x-auth-token")
     .send(_.pick(user, ["_id", "first_name", "last_name", "email"]));
 });
+
+router.put("/:id/meeting_id", async (req, res) => {
+  // const Manager = res.locals.models.plant;
+
+  const manager = await Manager.findById(req.params.id);
+  if (!manager)
+    res.status(404).send(`Manager with id ${req.params.id} not found!`);
+  res.send(manager);
+
+  manager.meeting_id.push(req.body.meeting_id);
+
+  let managerr;
+
+  managerr = await Manager.findByIdAndUpdate(
+    req.params.id,
+    {
+      meeting_id: manager.meeting_id,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!managerr)
+    return res.status(404).send("Manager with the given ID was not found.");
+
+  res.send(managerr);
+});
 module.exports = router;

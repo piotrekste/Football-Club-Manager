@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 Joi.objectId = require("joi-objectid")(Joi);
-
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const staffsSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -28,6 +28,11 @@ const staffsSchema = new mongoose.Schema({
     default: "",
     maxlength: 420,
   },
+  meeting_id: {
+    type: [ObjectId],
+    default: "",
+    ref: "Meetings",
+  },
 });
 
 const validateStaffs = (staffs) => {
@@ -37,6 +42,7 @@ const validateStaffs = (staffs) => {
     role: Joi.string().valid("trainer", "physio"), //todo more
     login: Joi.string().max(420),
     password: Joi.string().max(420),
+    meeting_id: Joi.array().items(Joi.objectId()),
   });
 
   return schema.validate(staffs);

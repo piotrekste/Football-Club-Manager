@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-import { Button, Icon, Image, Item, Label } from "semantic-ui-react";
-import foto from "../../img/matthew.png";
-const paragraph = (
-  <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
-);
+import { Item, Label } from "semantic-ui-react";
+//import foto from "../../img/matthew.png";
 
 class BuildingsContent extends Component {
   state = {

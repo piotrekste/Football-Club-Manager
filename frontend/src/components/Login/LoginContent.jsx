@@ -30,6 +30,8 @@ class LoginContent extends Component {
         const token = res.headers["x-auth-token"];
         localStorage.setItem("token", token);
         localStorage.setItem("id", res.data._id);
+        localStorage.setItem("first_name", res.data.first_name);
+        localStorage.setItem("last_name", res.data.last_name);
         localStorage.setItem("role", "staff");
         localStorage.setItem("isLogged", true);
         this.context.changeStore("isLogged", true);

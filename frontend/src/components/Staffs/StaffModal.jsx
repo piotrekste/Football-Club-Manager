@@ -48,9 +48,27 @@ class StaffModal extends Component {
     }).then((res) => this.setState({ body: res.data._id }));
     await this.props.callbackFromParent(!this.state.reload);
   };
-  handleAddButton = () => {
-    this.addTask();
-    this.setState({ open: false });
+  addTaskID = async () => {
+    await axios({
+      url: `http://localhost:5000/staffs/${this.props.id}/meeting_id`,
+      method: "put",
+      headers: setHeaders(),
+      data: {
+        meeting_id: {
+          _id: this.state.body,
+        },
+      },
+    }).then(
+      (res) => {},
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
+  handleAddButton = async () => {
+    await this.addTask();
+    await this.addTaskID();
+    await this.setState({ open: false });
   };
   render() {
     return (
