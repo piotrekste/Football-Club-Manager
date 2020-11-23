@@ -18,6 +18,7 @@ class ShowTimetable extends Component {
     formatedAllData: [],
     unformatedGlobalsData: [],
     formatedGlobalsData: [],
+    selectedEventTitle: "---",
   };
   getMeetingsId = async () => {
     const response = await fetch(
@@ -83,6 +84,9 @@ class ShowTimetable extends Component {
     var temp3 = temp1.concat(temp2);
     await this.setState({ formatedAllData: temp3 });
   };
+  getEventName = (e) => {
+    this.setState({ selectedEventTitle: e.title });
+  };
   render() {
     return (
       <>
@@ -101,12 +105,14 @@ class ShowTimetable extends Component {
                 defaultDate={new Date()}
                 defaultView="month"
                 events={this.state.formatedAllData}
-                style={{ height: "70vh", width: "70vw" }}
-                // onSelectEvent={this.getEventName}
+                style={{ height: "70vh", width: "100%" }}
+                onSelectEvent={this.getEventName}
               />
             </Modal.Description>
           </Modal.Content>
-
+          <div className="staff-timetable-info">
+            {this.state.selectedEventTitle}
+          </div>
           <Modal.Actions>
             <Button
               content="Zamknij"

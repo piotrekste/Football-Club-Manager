@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
+import { message } from "antd";
 import {
   Button,
   Header,
@@ -18,6 +19,7 @@ class PlanModal extends Component {
     startDate: new Date(),
     place: "",
     description: "",
+    duration: 1,
   };
   handleChange = (e) => {
     const { name } = e.target;
@@ -32,6 +34,7 @@ class PlanModal extends Component {
         place: this.state.place,
         description: this.state.description,
         date: this.state.startDate,
+        duration: this.state.duration,
       },
     }).then((res) => this.setState({ body: res.data._id, open: false }));
 
@@ -54,11 +57,23 @@ class PlanModal extends Component {
       },
     );
   };
+  handleSelectChange = (event) => {
+    this.setState({ duration: event.target.value });
+  };
   handleAddButton = async () => {
-    await this.addTraining();
-    await this.addTrainingID();
-    await this.props.callbackFromParent(!this.state.reload);
-    await this.setState({ open: false });
+    if (
+      this.state.duration === "" ||
+      this.state.place === "" ||
+      this.state.description === ""
+    ) {
+      message.error("Proszę wypełnić wszystkie pola!", 3);
+    } else {
+      await this.addTraining();
+      await this.addTrainingID();
+      await this.props.callbackFromParent(!this.state.reload);
+      await this.setState({ open: false });
+      message.success("Dodano trening!", 2);
+    }
   };
   render() {
     return (
@@ -69,13 +84,19 @@ class PlanModal extends Component {
           open={this.state.open}
           trigger={<Button>Zaplanuj trening</Button>}
         >
-          <Modal.Header>planowanie</Modal.Header>
+          <Modal.Header>Zaplanuj nowy trening</Modal.Header>
           <Modal.Content image>
             <Image size="medium" src={foto} wrapped />
             <Modal.Description>
-              <Header> jsjsjsjsj</Header>
-              <p>zrobic dodawania indeksu do playera</p>kalendarz itp
               <Form className="plan-form">
+                <TextArea
+                  rows={3}
+                  name="description"
+                  placeholder="Tytuł"
+                  style={{ minHeight: 100, maxHeight: 100, marginBottom: 30 }}
+                  value={this.state.desription}
+                  onChange={this.handleChange}
+                />
                 <TextArea
                   rows={1}
                   name="place"
@@ -84,33 +105,41 @@ class PlanModal extends Component {
                   value={this.state.place}
                   onChange={this.handleChange}
                 />
-                <TextArea
-                  rows={3}
-                  name="description"
-                  placeholder="Opis "
-                  style={{ minHeight: 100, maxHeight: 100, marginBottom: 30 }}
-                  value={this.state.desription}
-                  onChange={this.handleChange}
+                Czas trwania (w godzinach): <br />
+                <select
+                  value={this.state.duration}
+                  onChange={this.handleSelectChange}
+                >
+                  <option value="1" name="1">
+                    1
+                  </option>
+                  <option value="2" name="2">
+                    2
+                  </option>
+                  <option value="3" name="3">
+                    3
+                  </option>
+                </select>
+                <br />
+                Wybierz datę: <br />
+                <DatePicker
+                  className="plan-datepicker"
+                  selected={this.state.startDate}
+                  onChange={(date) => this.setState({ startDate: date })}
                 />
-                <div>
-                  {" "}
-                  <DatePicker
-                    className="plan-datepicker"
-                    selected={this.state.startDate}
-                    onChange={(date) => this.setState({ startDate: date })}
-                  />
-                </div>{" "}
               </Form>
-              <Button onClick={this.handleAddButton}>ok</Button>
             </Modal.Description>
           </Modal.Content>
 
           <Modal.Actions>
+            <Button negative onClick={() => this.setState({ open: false })}>
+              Anuluj
+            </Button>
             <Button
-              content="Zamknij"
+              content="Dodaj"
               labelPosition="right"
               icon="checkmark"
-              onClick={() => this.setState({ open: false })}
+              onClick={this.handleAddButton}
               positive
             />
           </Modal.Actions>

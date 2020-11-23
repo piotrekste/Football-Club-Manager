@@ -67,7 +67,7 @@ class PlayersModal extends Component {
         onClose={() => this.setState({ open: false })}
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
-        trigger={<Button>Zarządzaj</Button>}
+        trigger={<Button style={{ width: "100%" }}>Zarządzaj</Button>}
       >
         <Modal.Header>
           {this.state.currentPlayer.first_name +
