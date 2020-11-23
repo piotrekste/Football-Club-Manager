@@ -18,7 +18,9 @@ class StaffsContent extends Component {
     await this.getAllStaffs();
   };
   myCallbackEdit = async (dataFromChild) => {
-    await this.getAllStaffs();
+    if (dataFromChild === true) {
+      await this.getAllStaffs();
+    }
   };
   render() {
     return (
@@ -40,6 +42,7 @@ class StaffsContent extends Component {
                     id={this.state.staffs[key]._id}
                     callbackFromParent={this.myCallbackEdit}
                   />
+                  <br /> <br />
                   <ShowTimetable id={this.state.staffs[key]._id} />
                 </>
               }

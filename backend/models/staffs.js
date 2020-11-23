@@ -30,7 +30,7 @@ const staffsSchema = new mongoose.Schema({
   },
   meeting_id: {
     type: [ObjectId],
-    default: "",
+    default: [],
     ref: "Meetings",
   },
 });

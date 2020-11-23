@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-import { Button, Modal } from "semantic-ui-react";
+import { Button, Modal, Segment, Divider } from "semantic-ui-react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -18,6 +18,7 @@ class ShowTimetable extends Component {
     formatedAllData: [],
     unformatedGlobalsData: [],
     formatedGlobalsData: [],
+    selectedEventTitle: "---",
   };
   getMeetingsId = async () => {
     const response = await fetch(
@@ -79,11 +80,14 @@ class ShowTimetable extends Component {
 
     await this.getAllGlobals();
     await this.getEvents();
-
     var temp1 = this.state.formatedData;
     var temp2 = this.state.formatedGlobalsData;
     var temp3 = temp1.concat(temp2);
     await this.setState({ formatedAllData: temp3 });
+  };
+
+  getEventName = (e) => {
+    this.setState({ selectedEventTitle: e.title });
   };
   render() {
     return (
@@ -92,9 +96,9 @@ class ShowTimetable extends Component {
           onClose={() => this.setState({ open: false })}
           onOpen={() => this.setState({ open: true })}
           open={this.state.open}
-          trigger={<Button>Pokaż harmonogram</Button>}
+          trigger={<Button style={{ width: "100%" }}>Pokaż harmonogram</Button>}
         >
-          <Modal.Header>Harmonogram{this.state.id}</Modal.Header>
+          <Modal.Header>Harmonogram</Modal.Header>
           <Modal.Content image>
             <Modal.Description>
               <Calendar
@@ -103,11 +107,15 @@ class ShowTimetable extends Component {
                 defaultDate={new Date()}
                 defaultView="month"
                 events={this.state.formatedAllData}
-                style={{ height: "70vh", width: "70vw" }}
-                // onSelectEvent={this.getEventName}
+                style={{ height: "70vh", width: "100%" }}
+                onSelectEvent={this.getEventName}
               />
             </Modal.Description>
           </Modal.Content>
+
+          <div className="staff-timetable-info">
+            {this.state.selectedEventTitle}
+          </div>
 
           <Modal.Actions>
             <Button

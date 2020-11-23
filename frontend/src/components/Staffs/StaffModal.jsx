@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
-import { Button, Modal, TextArea, Form } from "semantic-ui-react";
+import { Button, Modal, TextArea, Form, Select } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { message } from "antd";
 class StaffModal extends Component {
   state = {
     open: false,
     startDate: new Date(),
-    city: "",
-    street: "",
+    place: "",
+    duration: 1,
     description: "",
     reload: false,
     currentStaff: [],
@@ -33,6 +33,10 @@ class StaffModal extends Component {
   handleChange = (e) => {
     const { name } = e.target;
     this.setState({ [name]: e.target.value });
+    console.log(this.state.duration);
+  };
+  handleSelectChange = (event) => {
+    this.setState({ duration: event.target.value });
   };
   addTask = async () => {
     await axios({
@@ -40,13 +44,12 @@ class StaffModal extends Component {
       method: "post",
       headers: setHeaders(),
       data: {
-        city: this.state.city,
-        street: this.state.street,
+        place: this.state.place,
+        duration: this.state.duration,
         description: this.state.description,
         date: this.state.startDate,
       },
     }).then((res) => this.setState({ body: res.data._id }));
-    await this.props.callbackFromParent(!this.state.reload);
   };
   addTaskID = async () => {
     await axios({
@@ -66,9 +69,20 @@ class StaffModal extends Component {
     );
   };
   handleAddButton = async () => {
-    await this.addTask();
-    await this.addTaskID();
-    await this.setState({ open: false });
+    if (
+      this.state.duration === "" ||
+      this.state.place === "" ||
+      this.state.description === ""
+    ) {
+      message.error("Proszę wypełnić wszystkie pola!", 3);
+    } else {
+      //if(this.state.duration === "")
+      await this.addTask();
+      await this.addTaskID();
+      await this.setState({ open: false });
+      await this.props.callbackFromParent(true);
+      message.success("Dodano zadanie!", 2);
+    }
   };
   render() {
     return (
@@ -77,48 +91,57 @@ class StaffModal extends Component {
         onClose={() => this.setState({ open: false })}
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
-        trigger={<Button color="vk"> Przydziel zadanie</Button>}
+        trigger={
+          <Button style={{ width: "100%" }} color="vk">
+            {" "}
+            Przydziel nowe zadanie
+          </Button>
+        }
       >
-        <Modal.Header>Dodaj nowe zadanie dla: {this.props.id} </Modal.Header>
+        <Modal.Header>Dodaj nowe zadanie</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form className="plan-form">
               <TextArea
-                rows={1}
-                name="city"
-                placeholder="Wpisz miasto"
-                style={{
-                  minHeight: "6vh",
-                  maxHeight: "6vh",
-                  marginBottom: "3vh",
-                }}
-                value={this.state.city}
-                onChange={this.handleChange}
-              />
-              <TextArea
-                rows={1}
-                name="street"
-                placeholder="Wpisz ulice"
-                style={{
-                  minHeight: "6vh",
-                  maxHeight: "6vh",
-                  marginBottom: "3vh",
-                }}
-                value={this.state.street}
-                onChange={this.handleChange}
-              />
-              <TextArea
                 rows={3}
                 name="description"
-                placeholder="Dodatkowe informacje"
+                placeholder="Tytuł"
                 style={{
-                  minHeight: "12vh",
-                  maxHeight: "12vh",
+                  minHeight: "8vh",
+                  maxHeight: "8vh",
                   marginBottom: "3vh",
                 }}
                 value={this.state.desription}
                 onChange={this.handleChange}
               />{" "}
+              <TextArea
+                rows={1}
+                name="place"
+                placeholder="Miejsce"
+                style={{
+                  minHeight: "6vh",
+                  maxHeight: "6vh",
+                  marginBottom: "3vh",
+                }}
+                value={this.state.place}
+                onChange={this.handleChange}
+              />
+              Czas trwania (w godzinach): <br />
+              <select
+                value={this.state.duration}
+                onChange={this.handleSelectChange}
+              >
+                <option value="1" name="1">
+                  1
+                </option>
+                <option value="2" name="2">
+                  2
+                </option>
+                <option value="3" name="3">
+                  3
+                </option>
+              </select>
+              <br />
               Wybierz datę: <br />
               <DatePicker
                 className="plan-datepicker"
