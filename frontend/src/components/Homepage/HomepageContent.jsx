@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 
 import HomepageTimetable from "./HomepageTimetable";
-import { Statistic } from "semantic-ui-react";
+
+import HomepageMessages from "./HomepageMessages";
+import { Statistic, Segment } from "semantic-ui-react";
 import Store from "../../Store";
 class HomepageContent extends Component {
   state = {
@@ -64,33 +66,40 @@ class HomepageContent extends Component {
       <div className="container">
         {" "}
         <div className="homepage-entry-container">
-          Witaj {this.context.role && " menadzeru!! "}
-          {this.state.first_name} {this.state.last_name}
+          Dzień dobry,
+          {" " + this.state.first_name} {" " + this.state.last_name}!
         </div>
         <div className="homepage-statistics-container">
+          <Segment style={{ fontSize: "1.2em" }}>Aktualne statystyki:</Segment>
           <Statistic.Group widths="1">
             <Statistic>
-              <Statistic.Value>{this.state.buildingsCosts}</Statistic.Value>
+              <Statistic.Value>
+                {this.state.buildingsCosts + " PLN"}
+              </Statistic.Value>
               <Statistic.Label>wydatki na utrzymanie budynkow</Statistic.Label>
             </Statistic>
             <Statistic>
-              <Statistic.Value>{this.state.sumSalary}</Statistic.Value>
+              <Statistic.Value>{this.state.sumSalary + " PLN"}</Statistic.Value>
               <Statistic.Label>wydatki na pensje</Statistic.Label>
             </Statistic>
             <Statistic>
-              <Statistic.Value>{this.state.sumIncome}</Statistic.Value>
+              <Statistic.Value>{this.state.sumIncome + " PLN"}</Statistic.Value>
               <Statistic.Label>zarobki z dnia meczowego</Statistic.Label>
             </Statistic>
             <Statistic>
               <Statistic.Value>
                 {this.state.sumIncome -
                   this.state.sumSalary -
-                  this.state.buildingsCosts}
+                  this.state.buildingsCosts +
+                  " PLN"}
               </Statistic.Value>
               <Statistic.Label>miesięczny bilans</Statistic.Label>
             </Statistic>
           </Statistic.Group>
         </div>{" "}
+        <div className="homepage-messages-container">
+          <HomepageMessages />
+        </div>
         <HomepageTimetable />
       </div>
     );
@@ -98,3 +107,5 @@ class HomepageContent extends Component {
 }
 
 export default HomepageContent;
+
+//{this.context.role && " menadzeru!! "}

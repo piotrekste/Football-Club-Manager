@@ -42,8 +42,11 @@ app.use("/players", players);
 const staffs = require("./routes/staffs");
 app.use("/staffs", staffs);
 
-const trainings = require("./routes/trainings");
-app.use("/trainings", trainings);
+const messages = require("./routes/messages");
+app.use("/messages", messages);
+
+//const trainings = require("./routes/trainings");
+//app.use("/trainings", trainings);
 
 const globals = require("./routes/globals");
 app.use("/globals", globals);

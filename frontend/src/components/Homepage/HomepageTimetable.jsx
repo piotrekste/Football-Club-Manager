@@ -3,7 +3,7 @@ import setHeaders from "../../utils/setHeaders";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
+import { Segment } from "semantic-ui-react";
 const localizer = momentLocalizer(moment);
 
 class TimetableContent extends Component {
@@ -109,15 +109,17 @@ class TimetableContent extends Component {
   };
   render() {
     return (
-      <div className="container">
+      <div className="homepage-calendar-container">
+        <Segment style={{ fontSize: "1.2em" }}>Zaplanowane wydarzenia:</Segment>
         <Calendar
-          className="homepage-calendar-container"
+          className=""
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
           events={this.state.formatedAllData}
-          style={{ height: "60vh" }}
+          style={{ height: "50vh", width: "100%" }}
           onSelectEvent={this.getEventName}
+          toolbar={false}
         />
       </div>
     );

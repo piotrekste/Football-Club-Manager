@@ -4,6 +4,7 @@ import axios from "axios";
 import Store from "../../Store";
 import setHeaders from "../../utils/setHeaders";
 import { Redirect } from "react-router-dom";
+import { message } from "antd";
 class LoginContent extends Component {
   state = {
     login: "",
@@ -106,11 +107,15 @@ class LoginContent extends Component {
     }
   };
   onButtonSubmit = async (e) => {
-    e.preventDefault();
-    await this.authStaffUser();
-    await this.authPlayerUser();
-    await this.authManagerUser();
-    this.loginValidate();
+    if (this.state.login === "" || this.state.password === "") {
+      message.error("Proszę wypełnić wszystkie pola!", 3);
+    } else {
+      e.preventDefault();
+      await this.authStaffUser();
+      await this.authPlayerUser();
+      await this.authManagerUser();
+      this.loginValidate();
+    }
   };
   handleChange = (e) => {
     const { value, name } = e.target;
@@ -120,10 +125,10 @@ class LoginContent extends Component {
   loginValidate = () => {
     if (this.state.invalidData) {
       //return message.error("Nieprawidłowy e-mail lub hasło", 3);
-      console.log("niepioprawne");
+      message.error("Błędny login lub hasło!", 3);
     } else {
-      //return null;
-      console.log("poprawne dane");
+      return null;
+      //console.log("poprawne dane");
     }
   };
   render() {
