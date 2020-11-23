@@ -60,36 +60,61 @@ class TodaysTasks extends Component {
 
   render() {
     return (
-      <div className="extras-container">
-        <div className="todays-task-container">
-          <p>Aby wyświetlic szczegóły - wybierz zadanie z kalendarza!</p>
-        </div>
-        <Divider />
-        <div className="selected-task-container">
-          <List>
-            <List.Item> {this.state.currentTask.description}</List.Item>
-            <List.Item>{this.state.currentTask.city}</List.Item>
-            <List.Item>{this.state.currentTask.place}</List.Item>
-            <List.Item> {this.state.currentTask.street}</List.Item>
-            <List.Item> {this.state.currentTask.title}</List.Item>
-            <List.Item> {this.state.currentTask.date}</List.Item>
-          </List>
-        </div>
+      <>
+        {" "}
+        {!this.context.role && (
+          <div className="extras-container-short">
+            <div className="todays-task-container">
+              <p>Aby wyświetlic szczegóły - wybierz zadanie z kalendarza!</p>
+            </div>
+            <Divider />
+            <div className="selected-task-container">
+              <List>
+                <List.Item> {this.state.currentTask.description}</List.Item>
+                <List.Item>{this.state.currentTask.city}</List.Item>
+                <List.Item>{this.state.currentTask.place}</List.Item>
+                <List.Item> {this.state.currentTask.street}</List.Item>
+                <List.Item> {this.state.currentTask.title}</List.Item>
+                <List.Item> {this.state.currentTask.date}</List.Item>
+              </List>
+            </div>
 
-        <Divider />
+            <Divider />
+          </div>
+        )}
+        {this.context.role && (
+          <div className="extras-container">
+            <div className="todays-task-container">
+              <p>Aby wyświetlic szczegóły - wybierz zadanie z kalendarza!</p>
+            </div>
+            <Divider />
+            <div className="selected-task-container">
+              <List>
+                <List.Item> {this.state.currentTask.description}</List.Item>
+                <List.Item>{this.state.currentTask.city}</List.Item>
+                <List.Item>{this.state.currentTask.place}</List.Item>
+                <List.Item> {this.state.currentTask.street}</List.Item>
+                <List.Item> {this.state.currentTask.title}</List.Item>
+                <List.Item> {this.state.currentTask.date}</List.Item>
+              </List>
+            </div>
 
-        <div className="addtask-container">
-          {this.context.role && (
-            <>
-              <AddTask callbackFromParent={this.myCallbackAddTask} />
-              <p></p>
-              <AddMyTask callbackFromParent={this.myCallbackAddTask} />
-              <p></p>
-              <AddMessage />
-            </>
-          )}
-        </div>
-      </div>
+            <Divider />
+
+            <div className="addtask-container">
+              {this.context.role && (
+                <>
+                  <AddTask callbackFromParent={this.myCallbackAddTask} />
+                  <p></p>
+                  <AddMyTask callbackFromParent={this.myCallbackAddTask} />
+                  <p></p>
+                  <AddMessage />
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 }

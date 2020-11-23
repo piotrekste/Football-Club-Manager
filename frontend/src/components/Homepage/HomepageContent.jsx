@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 
 import HomepageTimetable from "./HomepageTimetable";
-
+import HomepageAddMessage from "./HomepageAddMessage";
 import HomepageMessages from "./HomepageMessages";
 import { Statistic, Segment } from "semantic-ui-react";
 import Store from "../../Store";
@@ -15,6 +15,7 @@ class HomepageContent extends Component {
     buildingsCosts: 0,
     first_name: "",
     last_name: "",
+    reload: false,
   };
   static contextType = Store;
   getSalary = async () => {
@@ -61,44 +62,75 @@ class HomepageContent extends Component {
     await this.getSalary();
     await this.getIncome();
   };
+  myCallbackAddMessage = async (dataFromChild) => {
+    if (dataFromChild === true) {
+      await this.setState({ reload: dataFromChild });
+    }
+  };
   render() {
     return (
       <div className="container">
         {" "}
         <div className="homepage-entry-container">
-          Dzień dobry,
-          {" " + this.state.first_name} {" " + this.state.last_name}!
+          <Segment style={{ fontSize: ".7em" }}>
+            Dzień dobry,
+            {" " + this.state.first_name} {" " + this.state.last_name}!
+          </Segment>
         </div>
-        <div className="homepage-statistics-container">
-          <Segment style={{ fontSize: "1.2em" }}>Aktualne statystyki:</Segment>
-          <Statistic.Group widths="1">
-            <Statistic>
-              <Statistic.Value>
-                {this.state.buildingsCosts + " PLN"}
-              </Statistic.Value>
-              <Statistic.Label>wydatki na utrzymanie budynkow</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>{this.state.sumSalary + " PLN"}</Statistic.Value>
-              <Statistic.Label>wydatki na pensje</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>{this.state.sumIncome + " PLN"}</Statistic.Value>
-              <Statistic.Label>zarobki z dnia meczowego</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>
-                {this.state.sumIncome -
-                  this.state.sumSalary -
-                  this.state.buildingsCosts +
-                  " PLN"}
-              </Statistic.Value>
-              <Statistic.Label>miesięczny bilans</Statistic.Label>
-            </Statistic>
-          </Statistic.Group>
-        </div>{" "}
+        {!this.context.role && (
+          <div className="homepage-add-message-container">
+            <Segment style={{ overflow: "auto", minHeight: "30vh" }}>
+              <Segment style={{ fontSize: "1.2em" }}>
+                Chcesz wysłać nową wiadomość do pozostałych członków klubu?
+              </Segment>
+              <HomepageAddMessage
+                callbackFromParent={this.myCallbackAddMessage}
+              />
+            </Segment>
+          </div>
+        )}
+        {this.context.role && (
+          <div className="homepage-statistics-container">
+            <Segment style={{ overflow: "auto", maxHeight: "65vh" }}>
+              <Segment style={{ fontSize: "1.2em" }}>
+                Aktualne statystyki:
+              </Segment>
+              <Statistic.Group widths="1">
+                <Statistic>
+                  <Statistic.Value>
+                    {this.state.buildingsCosts + " PLN"}
+                  </Statistic.Value>
+                  <Statistic.Label>
+                    wydatki na utrzymanie budynkow
+                  </Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>
+                    {this.state.sumSalary + " PLN"}
+                  </Statistic.Value>
+                  <Statistic.Label>wydatki na pensje</Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>
+                    {this.state.sumIncome + " PLN"}
+                  </Statistic.Value>
+                  <Statistic.Label>zarobki z dnia meczowego</Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>
+                    {this.state.sumIncome -
+                      this.state.sumSalary -
+                      this.state.buildingsCosts +
+                      " PLN"}
+                  </Statistic.Value>
+                  <Statistic.Label>miesięczny bilans</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
+            </Segment>{" "}
+          </div>
+        )}
         <div className="homepage-messages-container">
-          <HomepageMessages />
+          <HomepageMessages flag={this.state.reload} />
         </div>
         <HomepageTimetable />
       </div>

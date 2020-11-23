@@ -110,17 +110,21 @@ class TimetableContent extends Component {
   render() {
     return (
       <div className="homepage-calendar-container">
-        <Segment style={{ fontSize: "1.2em" }}>Zaplanowane wydarzenia:</Segment>
-        <Calendar
-          className=""
-          localizer={localizer}
-          defaultDate={new Date()}
-          defaultView="month"
-          events={this.state.formatedAllData}
-          style={{ height: "50vh", width: "100%" }}
-          onSelectEvent={this.getEventName}
-          toolbar={false}
-        />
+        <Segment style={{ overflow: "auto", maxHeight: "63vh" }}>
+          <Segment style={{ fontSize: "1.2em" }}>
+            Zaplanowane wydarzenia:
+          </Segment>
+          <Calendar
+            className=""
+            localizer={localizer}
+            defaultDate={new Date()}
+            defaultView="month"
+            events={this.state.formatedAllData}
+            style={{ height: "48vh", width: "100%" }}
+            onSelectEvent={this.getEventName}
+            toolbar={false}
+          />
+        </Segment>
       </div>
     );
   }

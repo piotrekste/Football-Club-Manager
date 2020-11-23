@@ -5,6 +5,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import TodaysTasks from "./TodaysTasks";
 import Store from "../../Store";
+import { Segment } from "semantic-ui-react";
 const localizer = momentLocalizer(moment);
 
 class TimetableContent extends Component {
@@ -147,11 +148,11 @@ class TimetableContent extends Component {
           events={this.state.formatedAllData}
           style={{ height: "85vh" }}
           onSelectEvent={this.getEventName}
-        />
+        />{" "}
         <TodaysTasks
           id={this.state.selectedEvent}
           callbackFromParent={this.myCallbackAdded}
-        />
+        />{" "}
       </div>
     );
   }

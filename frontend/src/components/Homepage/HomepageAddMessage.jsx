@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import { message } from "antd";
 import { Button, Modal, TextArea, Form } from "semantic-ui-react";
-class AddMessage extends Component {
+class HomepageAddMessage extends Component {
   state = {
     open: false,
     title: "",
@@ -33,9 +33,10 @@ class AddMessage extends Component {
         title: this.state.title,
       },
     }).then((res) => this.setState({ body: res.data._id }));
+    //await this.props.callbackFromParent(!this.state.reload);
     await this.props.callbackFromParent(!this.state.reload);
   };
-  handleAddButton = () => {
+  handleAddButton = async () => {
     if (
       // this.state.duration === "" ||
       this.state.title === "" ||
@@ -43,8 +44,9 @@ class AddMessage extends Component {
     ) {
       message.error("Proszę wypełnić wszystkie pola!", 3);
     } else {
-      this.addTask();
-      this.setState({ open: false });
+      await this.addTask();
+      await this.setState({ open: false, reload: false });
+
       message.success("Wiadomość wysłana!", 2);
     }
   };
@@ -56,7 +58,7 @@ class AddMessage extends Component {
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
         trigger={
-          <Button style={{ width: "70%" }} color="vk">
+          <Button style={{ width: "100%" }} color="vk">
             {" "}
             Wyslij wiadomość
           </Button>
@@ -109,4 +111,4 @@ class AddMessage extends Component {
     );
   }
 }
-export default AddMessage;
+export default HomepageAddMessage;
