@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
-import { Button, Modal, TextArea, Form } from "semantic-ui-react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 import { message } from "antd";
-class AddTask extends Component {
+import { Button, Modal, TextArea, Form } from "semantic-ui-react";
+class AddMessage extends Component {
   state = {
     open: false,
-    startDate: new Date(),
-    city: "",
+    title: "",
     description: "",
     reload: false,
+    owner:
+      localStorage.getItem("role").toUpperCase() +
+      "-" +
+      localStorage.getItem("first_name") +
+      " " +
+      localStorage.getItem("last_name"),
   };
   handleChange = (e) => {
     const { name } = e.target;
@@ -19,28 +23,29 @@ class AddTask extends Component {
   };
   addTask = async () => {
     await axios({
-      url: `http://localhost:5000/globals/`,
+      url: `http://localhost:5000/messages/`,
       method: "post",
       headers: setHeaders(),
       data: {
-        city: this.state.city,
+        date: moment().toDate(),
+        owner: this.state.owner,
         description: this.state.description,
-        date: this.state.startDate,
+        title: this.state.title,
       },
     }).then((res) => this.setState({ body: res.data._id }));
-    await this.props.callbackFromParent(!this.state.reload);
+    //await this.props.callbackFromParent(!this.state.reload);
   };
   handleAddButton = () => {
     if (
       // this.state.duration === "" ||
-      this.state.city === "" ||
+      this.state.title === "" ||
       this.state.description === ""
     ) {
       message.error("Proszę wypełnić wszystkie pola!", 3);
     } else {
       this.addTask();
       this.setState({ open: false });
-      message.success("Dodano globalne wydarzenie!", 2);
+      message.success("Wiadomość wysłana!", 2);
     }
   };
   render() {
@@ -53,18 +58,30 @@ class AddTask extends Component {
         trigger={
           <Button style={{ width: "70%" }} color="vk">
             {" "}
-            Dodaj nowe globalne zadanie
+            Wyslij wiadomość
           </Button>
         }
       >
-        <Modal.Header>Dodaj nowe globalne zadanie</Modal.Header>
+        <Modal.Header> Wyslij globalną wiadomość</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form className="plan-form">
               <TextArea
-                rows={3}
+                rows={1}
+                name="title"
+                placeholder="Wpisz tytuł"
+                style={{
+                  minHeight: "6vh",
+                  maxHeight: "6vh",
+                  marginBottom: "3vh",
+                }}
+                value={this.state.title}
+                onChange={this.handleChange}
+              />
+              <TextArea
+                rows={1}
                 name="description"
-                placeholder="Tytuł"
+                placeholder="Wpisz wiadomość"
                 style={{
                   minHeight: "8vh",
                   maxHeight: "8vh",
@@ -72,24 +89,6 @@ class AddTask extends Component {
                 }}
                 value={this.state.description}
                 onChange={this.handleChange}
-              />{" "}
-              <TextArea
-                rows={1}
-                name="city"
-                placeholder="Miejsce"
-                style={{
-                  minHeight: "6vh",
-                  maxHeight: "6vh",
-                  marginBottom: "3vh",
-                }}
-                value={this.state.city}
-                onChange={this.handleChange}
-              />
-              Wybierz datę: <br />
-              <DatePicker
-                className="plan-datepicker"
-                selected={this.state.startDate}
-                onChange={(date) => this.setState({ startDate: date })}
               />
             </Form>
           </Modal.Description>
@@ -110,4 +109,4 @@ class AddTask extends Component {
     );
   }
 }
-export default AddTask;
+export default AddMessage;

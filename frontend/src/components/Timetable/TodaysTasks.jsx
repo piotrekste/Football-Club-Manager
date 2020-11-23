@@ -3,6 +3,7 @@ import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
 import AddTask from "./AddTask";
 import AddMyTask from "./AddMyTask";
+import AddMessage from "./AddMessage";
 import { Divider, List } from "semantic-ui-react";
 import Store from "../../Store";
 
@@ -68,6 +69,7 @@ class TodaysTasks extends Component {
           <List>
             <List.Item> {this.state.currentTask.description}</List.Item>
             <List.Item>{this.state.currentTask.city}</List.Item>
+            <List.Item>{this.state.currentTask.place}</List.Item>
             <List.Item> {this.state.currentTask.street}</List.Item>
             <List.Item> {this.state.currentTask.title}</List.Item>
             <List.Item> {this.state.currentTask.date}</List.Item>
@@ -82,6 +84,8 @@ class TodaysTasks extends Component {
               <AddTask callbackFromParent={this.myCallbackAddTask} />
               <p></p>
               <AddMyTask callbackFromParent={this.myCallbackAddTask} />
+              <p></p>
+              <AddMessage />
             </>
           )}
         </div>

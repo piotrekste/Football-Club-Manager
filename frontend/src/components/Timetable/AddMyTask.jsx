@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, Modal, TextArea, Form } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { message } from "antd";
 class AddTask extends Component {
   state = {
     open: false,
@@ -23,8 +24,8 @@ class AddTask extends Component {
       method: "post",
       headers: setHeaders(),
       data: {
-        city: this.state.city,
-        street: this.state.street,
+        place: this.state.place,
+        duration: this.state.duration,
         description: this.state.description,
         date: this.state.startDate,
       },
@@ -49,14 +50,25 @@ class AddTask extends Component {
       },
     );
   };
-
+  handleSelectChange = (event) => {
+    this.setState({ duration: event.target.value });
+  };
   handleAddButton = async () => {
-    await this.addTask();
+    if (
+      this.state.duration === "" ||
+      this.state.place === "" ||
+      this.state.description === ""
+    ) {
+      message.error("Proszę wypełnić wszystkie pola!", 3);
+    } else {
+      await this.addTask();
 
-    await this.addTaskID();
+      await this.addTaskID();
 
-    await this.props.callbackFromParent(!this.state.reload);
-    await this.setState({ open: false });
+      await this.props.callbackFromParent(!this.state.reload);
+      await this.setState({ open: false });
+      message.success("Dodano zadanie!", 2);
+    }
   };
   render() {
     return (
@@ -65,48 +77,57 @@ class AddTask extends Component {
         onClose={() => this.setState({ open: false })}
         onOpen={() => this.setState({ open: true })}
         open={this.state.open}
-        trigger={<Button color="vk"> Dodaj nowe moje zadanie</Button>}
+        trigger={
+          <Button style={{ width: "70%" }} color="vk">
+            {" "}
+            Dodaj nowe moje zadanie
+          </Button>
+        }
       >
         <Modal.Header>Dodaj nowe moje zadanie</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form className="plan-form">
               <TextArea
-                rows={1}
-                name="city"
-                placeholder="Wpisz miasto"
-                style={{
-                  minHeight: "6vh",
-                  maxHeight: "6vh",
-                  marginBottom: "3vh",
-                }}
-                value={this.state.city}
-                onChange={this.handleChange}
-              />
-              <TextArea
-                rows={1}
-                name="street"
-                placeholder="Wpisz ulice"
-                style={{
-                  minHeight: "6vh",
-                  maxHeight: "6vh",
-                  marginBottom: "3vh",
-                }}
-                value={this.state.street}
-                onChange={this.handleChange}
-              />
-              <TextArea
                 rows={3}
                 name="description"
-                placeholder="Dodatkowe informacje"
+                placeholder="Tytuł"
                 style={{
-                  minHeight: "12vh",
-                  maxHeight: "12vh",
+                  minHeight: "8vh",
+                  maxHeight: "8vh",
                   marginBottom: "3vh",
                 }}
                 value={this.state.desription}
                 onChange={this.handleChange}
               />{" "}
+              <TextArea
+                rows={1}
+                name="place"
+                placeholder="Miejsce"
+                style={{
+                  minHeight: "6vh",
+                  maxHeight: "6vh",
+                  marginBottom: "3vh",
+                }}
+                value={this.state.place}
+                onChange={this.handleChange}
+              />
+              Czas trwania (w godzinach): <br />
+              <select
+                value={this.state.duration}
+                onChange={this.handleSelectChange}
+              >
+                <option value="1" name="1">
+                  1
+                </option>
+                <option value="2" name="2">
+                  2
+                </option>
+                <option value="3" name="3">
+                  3
+                </option>
+              </select>
+              <br />
               Wybierz datę: <br />
               <DatePicker
                 className="plan-datepicker"

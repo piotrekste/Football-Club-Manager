@@ -9,8 +9,8 @@
 .extras-container {
   background-color: #fee715;
   float: left;
-  width: 25vw;
-  height: 60vh;
+  width: 28%;
+  height: 75vh;
   margin-left: 2vw;
   margin-top: 2vh;
   border: 2px solid rgb(0, 0, 0);
@@ -18,6 +18,12 @@
   font-size: 22px;
 
   text-align: center;
+}
+
+@media only screen and (max-width: 870px) {
+  .extras-container {
+    height: 80vh;
+  }
 }
 
 .todays-task-container {
