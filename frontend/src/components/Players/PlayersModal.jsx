@@ -110,13 +110,13 @@ class PlayersModal extends Component {
                 <Statistic.Value>
                   {this.state.currentStatistics.matches_season}
                 </Statistic.Value>
-                <Statistic.Label>Meczów w sezonie</Statistic.Label>
+                <Statistic.Label>Mecze w sezonie</Statistic.Label>
               </Statistic>
               <Statistic>
                 <Statistic.Value>
                   {this.state.currentStatistics.matches_all}
                 </Statistic.Value>
-                <Statistic.Label>Meczów w karierze</Statistic.Label>
+                <Statistic.Label>Mecze w karierze</Statistic.Label>
               </Statistic>
               <Statistic>
                 <Statistic.Value>

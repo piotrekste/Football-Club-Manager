@@ -16,6 +16,7 @@ class HomepageContent extends Component {
     first_name: "",
     last_name: "",
     reload: false,
+    staffUser: [],
   };
   static contextType = Store;
   getSalary = async () => {
@@ -36,7 +37,22 @@ class HomepageContent extends Component {
 
     //await console.log("nie wiem", this.state.formatedData);
   };
+  getStaffData = async () => {
+    const response = await fetch(
+      `http://localhost:5000/staffs/${localStorage.getItem("id")}`,
+      setHeaders(),
+    );
+    const body = await response.json();
+    await this.setState({ staffUser: body });
+    console.log("staffuser", this.state.staffUser);
+    await this.setState({
+      first_name: this.state.staffUser.first_name,
+      last_name: this.state.staffUser.last_name,
+    });
 
+    await localStorage.setItem("first_name", this.state.first_name);
+    await localStorage.setItem("last_name", this.state.last_name);
+  };
   getIncome = async () => {
     const response = await fetch(
       "http://localhost:5000/building/",
@@ -59,6 +75,9 @@ class HomepageContent extends Component {
   componentDidMount = async () => {
     await this.setState({ first_name: localStorage.getItem("first_name") });
     await this.setState({ last_name: localStorage.getItem("last_name") });
+    if (this.state.first_name === "undefined") {
+      await this.getStaffData();
+    }
     await this.getSalary();
     await this.getIncome();
   };

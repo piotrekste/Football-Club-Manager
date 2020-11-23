@@ -126,10 +126,7 @@ class EditModal extends Component {
           <Image size="medium" src={foto} wrapped />
 
           <Modal.Description className="edit-modal-description">
-            <Header>
-              {" "}
-              Statystyki:{this.state.currentPlayer.statistics_id}
-            </Header>
+            <Header> Statystyki:</Header>
 
             <Segment className="edit-modal-segment">
               <Divider horizontal>

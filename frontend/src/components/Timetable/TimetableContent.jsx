@@ -5,7 +5,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import TodaysTasks from "./TodaysTasks";
 import Store from "../../Store";
-import { Segment } from "semantic-ui-react";
+
 const localizer = momentLocalizer(moment);
 
 class TimetableContent extends Component {

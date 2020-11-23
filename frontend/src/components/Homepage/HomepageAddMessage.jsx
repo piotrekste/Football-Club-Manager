@@ -34,7 +34,7 @@ class HomepageAddMessage extends Component {
       },
     }).then((res) => this.setState({ body: res.data._id }));
     //await this.props.callbackFromParent(!this.state.reload);
-    await this.props.callbackFromParent(!this.state.reload);
+    await this.props.callbackFromParent(true);
   };
   handleAddButton = async () => {
     if (
@@ -48,6 +48,7 @@ class HomepageAddMessage extends Component {
       await this.setState({ open: false, reload: false });
 
       message.success("Wiadomość wysłana!", 2);
+      await this.props.callbackFromParent(false);
     }
   };
   render() {

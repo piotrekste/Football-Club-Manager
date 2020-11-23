@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 
 import { Card, Segment } from "semantic-ui-react";
-import foto from "../../img/patrick.png";
 
 class HomepageMessages extends Component {
   state = {
@@ -16,13 +15,14 @@ class HomepageMessages extends Component {
     );
     const body = await response.json();
     this.setState({ messages: body.reverse() });
-    console.log("data", this.state.messages);
   };
   componentDidMount = async () => {
     await this.getAllMessages();
   };
   componentDidUpdate = async (prevProps, prevState) => {
-    await this.getAllMessages();
+    if (prevProps !== this.props) {
+      this.getAllMessages();
+    }
   };
   render() {
     return (

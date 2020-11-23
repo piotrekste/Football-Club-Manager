@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
 import { message } from "antd";
-import {
-  Button,
-  Header,
-  Image,
-  Modal,
-  TextArea,
-  Form,
-} from "semantic-ui-react";
+import { Button, Image, Modal, TextArea, Form } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import foto from "../../img/matthew.png";
 import "react-datepicker/dist/react-datepicker.css";

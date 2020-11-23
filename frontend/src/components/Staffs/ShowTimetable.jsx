@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-import { Button, Modal, Segment, Divider } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -102,12 +102,12 @@ class ShowTimetable extends Component {
           <Modal.Content image>
             <Modal.Description>
               <Calendar
-                className="homepage-calendar-container"
+                className=""
                 localizer={localizer}
                 defaultDate={new Date()}
                 defaultView="month"
                 events={this.state.formatedAllData}
-                style={{ height: "70vh", width: "100%" }}
+                style={{ height: "60vh", width: "100%" }}
                 onSelectEvent={this.getEventName}
               />
             </Modal.Description>

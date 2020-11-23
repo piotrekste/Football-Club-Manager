@@ -100,12 +100,12 @@ class ShowTimetable extends Component {
           <Modal.Content image>
             <Modal.Description>
               <Calendar
-                className="homepage-calendar-container"
+                className=""
                 localizer={localizer}
                 defaultDate={new Date()}
                 defaultView="month"
                 events={this.state.formatedAllData}
-                style={{ height: "70vh", width: "100%" }}
+                style={{ height: "60vh", width: "100%" }}
                 onSelectEvent={this.getEventName}
               />
             </Modal.Description>

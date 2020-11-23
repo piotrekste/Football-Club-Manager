@@ -37,8 +37,6 @@ class LoginContent extends Component {
         localStorage.setItem("isLogged", true);
         this.context.changeStore("isLogged", true);
         this.context.changeStore("role", false);
-        // this.context.changeStore("role", "staff");
-
         document.location.href = "/";
       }
     } catch (err) {
@@ -111,9 +109,10 @@ class LoginContent extends Component {
       message.error("Proszę wypełnić wszystkie pola!", 3);
     } else {
       e.preventDefault();
-      await this.authStaffUser();
+
       await this.authPlayerUser();
       await this.authManagerUser();
+      await this.authStaffUser();
       this.loginValidate();
     }
   };
@@ -124,8 +123,7 @@ class LoginContent extends Component {
 
   loginValidate = () => {
     if (this.state.invalidData) {
-      //return message.error("Nieprawidłowy e-mail lub hasło", 3);
-      message.error("Błędny login lub hasło!", 3);
+      message.error("Błędny login lub hasło!", 2);
     } else {
       return null;
       //console.log("poprawne dane");
