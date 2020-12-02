@@ -85,7 +85,25 @@ class ShowTimetable extends Component {
     var temp3 = temp1.concat(temp2);
     await this.setState({ formatedAllData: temp3 });
   };
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps !== this.props) {
+      await this.setState({
+        unformatedData: [],
+        formatedData: [],
+        formatedAllData: [],
+        unformatedGlobalsData: [],
+        formatedGlobalsData: [],
+      });
+      await this.getMeetingsId();
 
+      await this.getAllGlobals();
+      await this.getEvents();
+      var temp1 = this.state.formatedData;
+      var temp2 = this.state.formatedGlobalsData;
+      var temp3 = temp1.concat(temp2);
+      await this.setState({ formatedAllData: temp3 });
+    }
+  };
   getEventName = (e) => {
     this.setState({ selectedEventTitle: e.title });
   };

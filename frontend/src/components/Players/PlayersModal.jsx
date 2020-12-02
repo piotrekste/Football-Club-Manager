@@ -20,6 +20,7 @@ class PlayersModal extends Component {
     data: this.props.players,
     currentPlayer: [],
     currentStatistics: [],
+    reload: false,
   };
 
   getPlayerByID = async () => {
@@ -57,6 +58,9 @@ class PlayersModal extends Component {
     if (dataFromChild === true) {
       await this.props.callbackFromParent(dataFromChild);
     }
+  };
+  myCallbackPlan = async (dataFromChild) => {
+    this.props.callbackFromParent(dataFromChild);
   };
   componentDidMount = async () => {
     await this.getPlayerByID();
@@ -146,12 +150,12 @@ class PlayersModal extends Component {
             <Divider horizontal>
               <PlanModal
                 id={this.props.id}
-                callbackFromParent={this.myCallbackEdit}
+                callbackFromParent={this.myCallbackPlan}
               />
             </Divider>
             <br />
             <Divider horizontal>
-              <ShowTimetable id={this.props.id} />
+              <ShowTimetable id={this.props.id} reload={!this.state.reload} />
             </Divider>
           </Modal.Description>
         </Modal.Content>

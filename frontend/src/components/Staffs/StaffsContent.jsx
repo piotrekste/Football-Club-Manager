@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import StaffModal from "./StaffModal";
-import { Button, Card, Segment } from "semantic-ui-react";
+import { Card, Segment } from "semantic-ui-react";
 import foto from "../../img/patrick.png";
 import ShowTimetable from "./ShowTimetable";
 import AddNewStaff from "./AddNewStaff";
 class StaffsContent extends Component {
   state = {
     staffs: [],
+    reload: false,
   };
   getAllStaffs = async () => {
     const response = await fetch("http://localhost:5000/staffs/", setHeaders());
@@ -49,7 +50,10 @@ class StaffsContent extends Component {
                     callbackFromParent={this.myCallbackEdit}
                   />
                   <br /> <br />
-                  <ShowTimetable id={this.state.staffs[key]._id} />
+                  <ShowTimetable
+                    id={this.state.staffs[key]._id}
+                    reload={!this.state.reload}
+                  />
                 </>
               }
             />
