@@ -26,7 +26,7 @@ const playersSchema = new mongoose.Schema({
   },
   position: {
     type: String,
-    enum: ["", "obrońca", "napastnik", "bramkarz", "pomocnik"], //todo more
+    enum: ["", "obronca", "napastnik", "bramkarz", "pomocnik"], //todo more
     default: "",
   },
   login: {
@@ -70,7 +70,7 @@ const validatePlayers = (players) => {
     login: Joi.string().max(420),
     birth: Joi.date(),
     position: Joi.string().valid(
-      "obrońca",
+      "obronca",
       "napastnik",
       "bramkarz",
       "pomocnik",

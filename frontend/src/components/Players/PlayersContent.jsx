@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import PlayersModal from "./PlayersModal";
-import { Card } from "semantic-ui-react";
+import { Button, Card, Segment } from "semantic-ui-react";
 import foto from "../../img/matthew.png";
+import AddNewPlayer from "./AddNewPlayer";
 class PlayersContent extends Component {
   state = {
     players: [],
@@ -25,6 +26,9 @@ class PlayersContent extends Component {
   render() {
     return (
       <div className="container">
+        <Segment style={{ textAlign: "center", marginBottom: "2em" }}>
+          <AddNewPlayer callbackFromParent={this.myCallbackEdit} />
+        </Segment>
         <Card.Group itemsPerRow={4}>
           {this.state.players.map((value, key) => (
             <Card

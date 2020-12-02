@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import StaffModal from "./StaffModal";
-import { Card } from "semantic-ui-react";
+import { Button, Card, Segment } from "semantic-ui-react";
 import foto from "../../img/patrick.png";
 import ShowTimetable from "./ShowTimetable";
+import AddNewStaff from "./AddNewStaff";
 class StaffsContent extends Component {
   state = {
     staffs: [],
@@ -17,6 +18,9 @@ class StaffsContent extends Component {
   componentDidMount = async () => {
     await this.getAllStaffs();
   };
+  myCallbackAdd = async () => {
+    await this.getAllStaffs();
+  };
   myCallbackEdit = async (dataFromChild) => {
     if (dataFromChild === true) {
       await this.getAllStaffs();
@@ -25,7 +29,9 @@ class StaffsContent extends Component {
   render() {
     return (
       <div className="container">
-        {" "}
+        <Segment style={{ textAlign: "center", marginBottom: "2em" }}>
+          <AddNewStaff callbackFromParent={this.myCallbackAdd} />
+        </Segment>
         <Card.Group itemsPerRow={4}>
           {this.state.staffs.map((value, key) => (
             <Card

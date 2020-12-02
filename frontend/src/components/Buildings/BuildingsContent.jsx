@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-import { Item, Label } from "semantic-ui-react";
+import { Item, Label, Button } from "semantic-ui-react";
 //import foto from "../../img/matthew.png";
 
 class BuildingsContent extends Component {
@@ -43,6 +43,7 @@ class BuildingsContent extends Component {
                   <br />
                   <Label>Miesięczny dochód: {value.income}</Label>
                 </Item.Extra>
+                <Button>zarzadzaj</Button>
               </Item.Content>
             </Item>
           ))}

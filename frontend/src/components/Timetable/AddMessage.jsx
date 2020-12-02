@@ -33,7 +33,6 @@ class AddMessage extends Component {
         title: this.state.title,
       },
     }).then((res) => this.setState({ body: res.data._id }));
-    await this.props.callbackFromParent(!this.state.reload);
   };
   handleAddButton = () => {
     if (

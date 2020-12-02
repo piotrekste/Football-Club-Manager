@@ -40,6 +40,15 @@ router.put("/:id/meeting_id", async (req, res) => {
 
   res.send(stafff);
 });
+
+router.put("/", async (req, res) => {
+  //const { error } = validateFlashset(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+
+  let staff = new Staff(req.body);
+  await staff.save();
+  res.send(staff);
+});
 router.post("/", async (req, res) => {
   /*
   validateLogin = (req) => {

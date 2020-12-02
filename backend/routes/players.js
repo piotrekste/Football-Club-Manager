@@ -50,6 +50,15 @@ router.post("/", async (req, res) => {
     .send(_.pick(user, ["_id", "first_name", "last_name", "email"]));
 });
 
+router.put("/", async (req, res) => {
+  //const { error } = validateFlashset(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+
+  let players = new Players(req.body);
+  await players.save();
+  res.send(players);
+});
+
 router.put("/:id/meeting_id", async (req, res) => {
   // const Manager = res.locals.models.plant;
 

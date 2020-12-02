@@ -9,6 +9,11 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("błąd: " + err));
 });
 
+router.put("/", async (req, res) => {
+  let statistics = new Statistics(req.body);
+  await statistics.save();
+  res.send(statistics);
+});
 router.get("/:id", async (req, res) => {
   const statistics = await Statistics.findById(req.params.id);
   if (!statistics)

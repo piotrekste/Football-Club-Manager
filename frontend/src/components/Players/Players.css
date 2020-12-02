@@ -31,3 +31,14 @@
   margin-right: auto;
   margin-left: auto;
 }
+.ui.button.add-player-button {
+  transition: all 0.3s ease-in-out !important;
+}
+.ui.button.add-player-button:hover {
+  background-color: #4d7198;
+  color: white;
+}
+
+.add-player-form {
+  width: 30% !important;
+}

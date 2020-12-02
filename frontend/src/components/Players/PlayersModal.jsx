@@ -13,6 +13,7 @@ import foto from "../../img/matthew.png";
 import PlanModal from "./PlanModal";
 import EditModal from "./EditModal";
 import ShowTimetable from "./ShowTimetable";
+
 class PlayersModal extends Component {
   state = {
     open: false,

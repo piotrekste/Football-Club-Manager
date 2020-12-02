@@ -15,8 +15,9 @@ const staffsSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["", "trainer", "physio"], //todo more
+
     default: "",
+    maxlength: 420,
   },
   login: {
     type: String,
