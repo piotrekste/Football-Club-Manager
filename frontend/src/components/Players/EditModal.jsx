@@ -10,7 +10,7 @@ import {
   Segment,
   Confirm,
 } from "semantic-ui-react";
-import foto from "../../img/matthew.png";
+import foto from "../../img/face.png";
 class EditModal extends Component {
   state = {
     open: false,

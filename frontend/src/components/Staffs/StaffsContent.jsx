@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import StaffModal from "./StaffModal";
 import { Card, Segment } from "semantic-ui-react";
-import foto from "../../img/patrick.png";
+import foto from "../../img/face.png";
 import ShowTimetable from "./ShowTimetable";
 import AddNewStaff from "./AddNewStaff";
 class StaffsContent extends Component {

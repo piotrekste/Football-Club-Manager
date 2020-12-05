@@ -3,7 +3,6 @@ import setHeaders from "../../utils/setHeaders";
 import axios from "axios";
 import { message } from "antd";
 import { Button, Modal, TextArea, Form } from "semantic-ui-react";
-import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 class AddNewStaff extends Component {

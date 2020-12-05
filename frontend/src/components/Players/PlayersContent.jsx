@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
 import PlayersModal from "./PlayersModal";
-import { Button, Card, Segment } from "semantic-ui-react";
-import foto from "../../img/matthew.png";
+import { Card, Segment } from "semantic-ui-react";
+import foto from "../../img/face.png";
 import AddNewPlayer from "./AddNewPlayer";
 class PlayersContent extends Component {
   state = {

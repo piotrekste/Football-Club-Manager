@@ -4,7 +4,7 @@ import axios from "axios";
 import { message } from "antd";
 import { Button, Image, Modal, TextArea, Form } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
-import foto from "../../img/matthew.png";
+import foto from "../../img/face.png";
 import "react-datepicker/dist/react-datepicker.css";
 class PlanModal extends Component {
   state = {

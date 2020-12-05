@@ -9,7 +9,7 @@ import {
   Modal,
   Statistic,
 } from "semantic-ui-react";
-import foto from "../../img/matthew.png";
+import foto from "../../img/face.png";
 import PlanModal from "./PlanModal";
 import EditModal from "./EditModal";
 import ShowTimetable from "./ShowTimetable";
