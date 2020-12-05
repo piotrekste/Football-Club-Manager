@@ -139,7 +139,7 @@ class LoginContent extends Component {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" color="black" textAlign="center">
-            Zaloguj się na swoje konto!
+            Log in to your account!
           </Header>
           <Form size="large">
             <Segment stacked>
@@ -169,7 +169,7 @@ class LoginContent extends Component {
                 size="large"
                 onClick={this.onButtonSubmit}
               >
-                Zaloguj się
+                Log in
               </Button>
             </Segment>
           </Form>

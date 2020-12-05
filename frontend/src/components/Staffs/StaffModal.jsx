@@ -14,6 +14,8 @@ class StaffModal extends Component {
     description: "",
     reload: false,
     currentStaff: [],
+    hours: "12",
+    minutes: "00",
   };
   getStaffByID = async () => {
     await axios({
@@ -35,8 +37,10 @@ class StaffModal extends Component {
     this.setState({ [name]: e.target.value });
     console.log(this.state.duration);
   };
-  handleSelectChange = (event) => {
-    this.setState({ duration: event.target.value });
+  handleSelectChange = (e) => {
+    const { name } = e.target;
+    this.setState({ [name]: e.target.value });
+    console.log(this.state.hours, this.state.minutes);
   };
   addTask = async () => {
     await axios({
@@ -69,14 +73,15 @@ class StaffModal extends Component {
     );
   };
   handleAddButton = async () => {
-    if (
-      this.state.duration === "" ||
-      this.state.place === "" ||
-      this.state.description === ""
-    ) {
+    if (this.state.place === "" || this.state.description === "") {
       message.error("Proszę wypełnić wszystkie pola!", 3);
     } else {
-      //if(this.state.duration === "")
+      await this.setState({
+        startDate: this.state.startDate.setHours(
+          this.state.hours,
+          this.state.minutes,
+        ),
+      });
       await this.addTask();
       await this.addTaskID();
       await this.setState({ open: false });
@@ -126,28 +131,93 @@ class StaffModal extends Component {
                 value={this.state.place}
                 onChange={this.handleChange}
               />
-              Czas trwania (w godzinach): <br />
-              <select
-                value={this.state.duration}
-                onChange={this.handleSelectChange}
-              >
-                <option value="1" name="1">
-                  1
-                </option>
-                <option value="2" name="2">
-                  2
-                </option>
-                <option value="3" name="3">
-                  3
-                </option>
-              </select>
-              <br />
               Wybierz datę: <br />
               <DatePicker
                 className="plan-datepicker"
                 selected={this.state.startDate}
                 onChange={(date) => this.setState({ startDate: date })}
               />
+              <br /> <br />
+              Wybierz godzinę: <br />
+              <select
+                className="time-picker"
+                value={this.state.hours}
+                onChange={this.handleSelectChange}
+                name="hours"
+              >
+                <option value="8" name="8">
+                  8
+                </option>
+                <option value="9" name="9">
+                  9
+                </option>
+                <option value="10" name="10">
+                  10
+                </option>
+                <option value="11" name="11">
+                  11
+                </option>
+                <option value="12" name="12">
+                  12
+                </option>
+                <option value="13" name="13">
+                  13
+                </option>
+                <option value="14" name="14">
+                  14
+                </option>
+                <option value="15" name="15">
+                  15
+                </option>
+                <option value="16" name="16">
+                  16
+                </option>
+                <option value="17" name="17">
+                  17
+                </option>
+                <option value="18" name="18">
+                  18
+                </option>
+                <option value="19" name="19">
+                  19
+                </option>
+                <option value="20" name="20">
+                  20
+                </option>
+                <option value="21" name="21">
+                  21
+                </option>
+                <option value="22" name="22">
+                  22
+                </option>{" "}
+                <option value="23" name="23">
+                  23
+                </option>
+                <option value="24" name="24">
+                  24
+                </option>
+              </select>
+              <select
+                className="time-picker"
+                value={this.state.minutes}
+                onChange={this.handleSelectChange}
+                name="minutes"
+              >
+                <option value="00" name="00">
+                  00
+                </option>
+                <option value="15" name="15">
+                  15
+                </option>
+                <option value="30" name="30">
+                  30
+                </option>
+                <option value="45" name="45">
+                  45
+                </option>
+              </select>
+              <br />
+              <br />
             </Form>
           </Modal.Description>
         </Modal.Content>
