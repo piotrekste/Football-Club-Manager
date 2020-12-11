@@ -49,8 +49,11 @@ class TodaysTasks extends Component {
       );
     }
   };
-  myCallbackAddTask = async (dataFromChild) => {
-    await this.props.callbackFromParent(dataFromChild);
+  myCallbackAddGlobalTask = (dataFromChild) => {
+    this.props.callbackFromParent(!dataFromChild);
+  };
+  myCallbackAddMyTask = (dataFromChild) => {
+    this.props.callbackFromParent(!dataFromChild);
   };
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.id !== this.props.id) {
@@ -104,9 +107,9 @@ class TodaysTasks extends Component {
             <div className="addtask-container">
               {this.context.role && (
                 <>
-                  <AddTask callbackFromParent={this.myCallbackAddTask} />
+                  <AddTask callbackFromParent={this.myCallbackAddGlobalTask} />
                   <p></p>
-                  <AddMyTask callbackFromParent={this.myCallbackAddTask} />
+                  <AddMyTask callbackFromParent={this.myCallbackAddMyTask} />
                   <p></p>
                   <AddMessage />
                 </>

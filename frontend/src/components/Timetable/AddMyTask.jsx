@@ -56,6 +56,7 @@ class AddTask extends Component {
         console.log(error);
       },
     );
+    await this.props.callbackFromParent(!this.state.reload);
   };
 
   handleAddButton = async () => {
@@ -72,7 +73,6 @@ class AddTask extends Component {
 
       await this.addTaskID();
 
-      await this.props.callbackFromParent(!this.state.reload);
       await this.setState({ open: false });
       message.success("Dodano zadanie!", 2);
     }
