@@ -58,7 +58,16 @@ class AddNewStaff extends Component {
         <Modal
           className="add-player-form"
           onClose={() => this.setState({ open: false })}
-          onOpen={() => this.setState({ open: true })}
+          onOpen={() =>
+            this.setState({
+              open: true,
+              first_name: "",
+              last_name: "",
+              role: "",
+              password: "",
+              login: "",
+            })
+          }
           open={this.state.open}
           trigger={
             <Button className="add-player-button">

@@ -16,6 +16,7 @@ class HomepageAddMessage extends Component {
       localStorage.getItem("first_name") +
       " " +
       localStorage.getItem("last_name"),
+    startDate: new Date(),
   };
   handleChange = (e) => {
     const { name } = e.target;
@@ -27,7 +28,7 @@ class HomepageAddMessage extends Component {
       method: "post",
       headers: setHeaders(),
       data: {
-        date: moment().toDate(),
+        date: moment().add(1, "hour").toDate(),
         owner: this.state.owner,
         description: this.state.description,
         title: this.state.title,
@@ -56,7 +57,7 @@ class HomepageAddMessage extends Component {
       <Modal
         size="tiny"
         onClose={() => this.setState({ open: false })}
-        onOpen={() => this.setState({ open: true })}
+        onOpen={() => this.setState({ open: true, title: "", description: "" })}
         open={this.state.open}
         trigger={
           <Button style={{ width: "100%" }} color="vk">

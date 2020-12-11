@@ -79,7 +79,17 @@ class PlanModal extends Component {
       <>
         <Modal
           onClose={() => this.setState({ open: false })}
-          onOpen={() => this.setState({ open: true })}
+          onOpen={() =>
+            this.setState({
+              open: true,
+              startDate: new Date(),
+              place: "",
+              description: "",
+              duration: 1,
+              hours: "12",
+              minutes: "00",
+            })
+          }
           open={this.state.open}
           trigger={<Button>Zaplanuj trening</Button>}
         >

@@ -82,7 +82,18 @@ class AddTask extends Component {
       <Modal
         size="tiny"
         onClose={() => this.setState({ open: false })}
-        onOpen={() => this.setState({ open: true })}
+        onOpen={() =>
+          this.setState({
+            open: true,
+            startDate: new Date(),
+            city: "",
+            place: "",
+            description: "",
+
+            hours: "12",
+            minutes: "00",
+          })
+        }
         open={this.state.open}
         trigger={
           <Button style={{ width: "70%" }} color="vk">

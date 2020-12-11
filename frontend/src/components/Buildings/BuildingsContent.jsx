@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import setHeaders from "../../utils/setHeaders";
-import { Item, Label, Button } from "semantic-ui-react";
-//import foto from "../../img/matthew.png";
+import { Item, Label, Segment } from "semantic-ui-react";
+import BuildingsManage from "./BuildingsManage";
 
 class BuildingsContent extends Component {
   state = {
@@ -16,7 +16,9 @@ class BuildingsContent extends Component {
     this.setState({ buildings: body });
     console.log("data", this.state.buildings);
   };
-
+  myCallback = async (dataFromChild) => {
+    await this.getAllBuildings();
+  };
   componentDidMount = async () => {
     await this.getAllBuildings();
   };
@@ -43,10 +45,15 @@ class BuildingsContent extends Component {
                   <br />
                   <Label>Miesięczny dochód: {value.income}</Label>
                 </Item.Extra>
-                <Button>zarzadzaj</Button>
+                <br />
+                <BuildingsManage
+                  id={this.state.buildings[key]._id}
+                  callbackFromParent={this.myCallback}
+                />
               </Item.Content>
             </Item>
-          ))}
+          ))}{" "}
+          <Segment />
         </Item.Group>
       </div>
     );

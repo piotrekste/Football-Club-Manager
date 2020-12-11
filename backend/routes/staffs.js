@@ -73,4 +73,25 @@ router.post("/", async (req, res) => {
   res.header("x-auth-token").send(_.pick(user, ["_id", "username", "email"]));
 });
 
+router.put("/:id", async (req, res) => {
+  let staff;
+
+  staff = await Staff.findByIdAndUpdate(
+    req.params.id,
+    {
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      role: req.body.role,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!staff)
+    return res.status(404).send("staff with the given ID was not found.");
+
+  res.send("staff changed");
+});
+
 module.exports = router;

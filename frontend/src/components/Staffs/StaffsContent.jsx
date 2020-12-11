@@ -5,6 +5,7 @@ import { Card, Segment } from "semantic-ui-react";
 import foto from "../../img/face.png";
 import ShowTimetable from "./ShowTimetable";
 import AddNewStaff from "./AddNewStaff";
+
 class StaffsContent extends Component {
   state = {
     staffs: [],

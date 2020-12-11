@@ -52,7 +52,7 @@ class AddMessage extends Component {
       <Modal
         size="tiny"
         onClose={() => this.setState({ open: false })}
-        onOpen={() => this.setState({ open: true })}
+        onOpen={() => this.setState({ open: true, title: "", description: "" })}
         open={this.state.open}
         trigger={
           <Button style={{ width: "70%" }} color="vk">

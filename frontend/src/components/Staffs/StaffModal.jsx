@@ -94,7 +94,17 @@ class StaffModal extends Component {
       <Modal
         size="tiny"
         onClose={() => this.setState({ open: false })}
-        onOpen={() => this.setState({ open: true })}
+        onOpen={() =>
+          this.setState({
+            open: true,
+            startDate: new Date(),
+            place: "",
+            duration: 1,
+            description: "",
+            hours: "12",
+            minutes: "00",
+          })
+        }
         open={this.state.open}
         trigger={
           <Button style={{ width: "100%" }} color="vk">

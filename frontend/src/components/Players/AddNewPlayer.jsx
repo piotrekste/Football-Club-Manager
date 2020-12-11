@@ -83,6 +83,18 @@ class AddNewPlayer extends Component {
       await this.props.callbackFromParent(!this.state.reload);
       await this.setState({ open: false });
       message.success("Pomyślnie dodano zawodnika!", 2);
+      await this.setState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        position: "",
+        birth: "",
+        login: "",
+        height: "",
+        weight: "",
+        foot: "",
+      });
     }
   };
   render() {
@@ -91,7 +103,21 @@ class AddNewPlayer extends Component {
         <Modal
           className="add-player-form"
           onClose={() => this.setState({ open: false })}
-          onOpen={() => this.setState({ open: true })}
+          onOpen={() =>
+            this.setState({
+              open: true,
+              first_name: "",
+              last_name: "",
+              email: "",
+              password: "",
+              position: "",
+              birth: "",
+              login: "",
+              height: "",
+              weight: "",
+              foot: "",
+            })
+          }
           open={this.state.open}
           trigger={
             <Button className="add-player-button">
@@ -170,10 +196,12 @@ class AddNewPlayer extends Component {
                     Bramkarz
                   </option>
                 </select>
-                <TextArea
-                  rows={3}
+                <input
+                  type="number"
+                  id="height"
                   name="height"
                   placeholder="Wzrost"
+                  value={this.state.height}
                   style={{
                     minHeight: 50,
                     minWidth: "100%",
@@ -181,13 +209,15 @@ class AddNewPlayer extends Component {
                     maxHeight: 50,
                     marginBottom: 30,
                   }}
-                  value={this.state.height}
                   onChange={this.handleChange}
+                  min="100"
                 />
-                <TextArea
-                  rows={3}
+                <input
+                  type="number"
+                  id="weight"
                   name="weight"
                   placeholder="Waga"
+                  value={this.state.weight}
                   style={{
                     minHeight: 50,
                     minWidth: "100%",
@@ -195,8 +225,8 @@ class AddNewPlayer extends Component {
                     maxHeight: 50,
                     marginBottom: 30,
                   }}
-                  value={this.state.weight}
                   onChange={this.handleChange}
+                  min="40"
                 />
                 <select
                   value={this.state.foot}
