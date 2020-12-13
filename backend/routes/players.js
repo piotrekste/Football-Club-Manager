@@ -25,23 +25,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  /*
-  validateLogin = (req) => {
-    const schema = {
-      email: Joi.string().max(255).required().email(),
-      password: Joi.string().min(8).max(1024).required(),
-    };
-    return Joi.validate(req, schema);
-  };
-*/
-
-  // const { error, value } = req.body;
-  // if (error) return res.status(400).send(error.details[0].message);
-
   let user = await Players.findOne({ login: req.body.login });
   if (!user) return res.status(400).send("Invalid login or password.");
 
-  //let validPassword = await bcrypt.compare(value.password, user.password);
   let password = await Players.findOne({ password: req.body.password });
   if (!password) return res.status(400).send("Invalid login or password.");
 
@@ -51,17 +37,12 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  //const { error } = validateFlashset(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
-
   let players = new Players(req.body);
   await players.save();
   res.send(players);
 });
 
 router.put("/:id/meeting_id", async (req, res) => {
-  // const Manager = res.locals.models.plant;
-
   const players = await Players.findById(req.params.id);
   if (!players)
     res.status(404).send(`Players with id ${req.params.id} not found!`);
@@ -87,28 +68,3 @@ router.put("/:id/meeting_id", async (req, res) => {
   res.send(playerss);
 });
 module.exports = router;
-
-/**
- * const router = require("express").Router();
-
-let User = require("../models/user");
-
-router.route("/").get((req, res) => {
-  User.find()
-    .then((user) => res.json(user))
-    .catch((err) => res.status(400).json("błąd: " + err));
-});
-
-router.route("/add").post((req, res) => {
-  const username = req.body.username;
-  const newUser = new User({ username });
-
-  newUser
-    .save()
-    .then(() => res.json("user added"))
-    .catch((err) => res.status(400).json("błąd: " + err));
-});
-
-module.exports = router;
-
- */

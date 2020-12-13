@@ -21,7 +21,7 @@ class NavBar extends Component {
     this.context.changeStore("isLogged", false);
     this.context.changeStore("role", null);
 
-    document.location.href = "/login";
+    document.location.href = "/";
   };
   render() {
     return (
@@ -41,7 +41,7 @@ class NavBar extends Component {
                 <Menu.Item
                   name="Login"
                   as={Link}
-                  to="/login"
+                  to="/"
                   active={this.state.activeItem === "Login"}
                   //onClick={this.handleLogout}
                 />
@@ -56,7 +56,9 @@ class NavBar extends Component {
                 src={logo}
                 className="navbar-logo"
                 as={Link}
-                to="/"
+                to="/homepage"
+                name="timetable"
+                active={this.state.activeItem === ""}
                 style={{ width: "200px", height: "50px" }}
               />
 
@@ -111,7 +113,7 @@ class NavBar extends Component {
                 src={logo}
                 className="navbar-logo"
                 as={Link}
-                to="/"
+                to="/Homepage"
                 style={{ width: "200px", height: "50px" }}
               />
 

@@ -15,8 +15,6 @@ router.get("/:id", async (req, res) => {
   res.send(staff);
 });
 router.put("/:id/meeting_id", async (req, res) => {
-  // const Manager = res.locals.models.plant;
-
   const staff = await Staff.findById(req.params.id);
   if (!staff) res.status(404).send(`staff with id ${req.params.id} not found!`);
   res.send(staff);
@@ -42,31 +40,14 @@ router.put("/:id/meeting_id", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  //const { error } = validateFlashset(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
-
   let staff = new Staff(req.body);
   await staff.save();
   res.send(staff);
 });
 router.post("/", async (req, res) => {
-  /*
-  validateLogin = (req) => {
-    const schema = {
-      email: Joi.string().max(255).required().email(),
-      password: Joi.string().min(8).max(1024).required(),
-    };
-    return Joi.validate(req, schema);
-  };
-*/
-
-  // const { error, value } = req.body;
-  // if (error) return res.status(400).send(error.details[0].message);
-
   let user = await Staff.findOne({ login: req.body.login });
   if (!user) return res.status(400).send("Invalid login or password.");
 
-  //let validPassword = await bcrypt.compare(value.password, user.password);
   let password = await Staff.findOne({ password: req.body.password });
   if (!password) return res.status(400).send("Invalid login or password.");
 

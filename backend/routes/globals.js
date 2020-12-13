@@ -16,9 +16,6 @@ router.get("/:id", async (req, res) => {
   res.send(globals);
 });
 router.post("/", async (req, res) => {
-  //const { error } = validateFlashset(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
-
   let globals = new Globals(req.body);
   await globals.save();
   res.send(globals);

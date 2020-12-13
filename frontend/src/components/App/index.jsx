@@ -28,8 +28,8 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/homepage" component={Homepage} />
         <Route exact path="/buildings" component={Buildings} />
         <Route exact path="/players" component={Players} />
         <Route exact path="/timetable" component={Timetable} />

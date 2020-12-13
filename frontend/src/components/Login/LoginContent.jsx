@@ -37,7 +37,7 @@ class LoginContent extends Component {
         localStorage.setItem("isLogged", true);
         this.context.changeStore("isLogged", true);
         this.context.changeStore("role", false);
-        document.location.href = "/";
+        document.location.href = "/homepage";
       }
     } catch (err) {
       this.setState({ invalidData: true });
@@ -67,7 +67,7 @@ class LoginContent extends Component {
         localStorage.setItem("isLogged", true);
         this.context.changeStore("isLogged", true);
         this.context.changeStore("role", false);
-        document.location.href = "/";
+        document.location.href = "/homepage";
       }
     } catch (err) {
       this.setState({ invalidData: true });
@@ -98,7 +98,7 @@ class LoginContent extends Component {
         this.context.changeStore("isLogged", true);
         this.context.changeStore("role", true);
 
-        document.location.href = "/";
+        document.location.href = "/homepage";
       }
     } catch (err) {
       this.setState({ invalidData: true });
@@ -130,7 +130,7 @@ class LoginContent extends Component {
     }
   };
   render() {
-    if (this.context.isLogged) return <Redirect to="/" />;
+    if (this.context.isLogged) return <Redirect to="/homepage" />;
     return (
       <Grid
         textAlign="center"
